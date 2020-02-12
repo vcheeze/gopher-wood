@@ -1,7 +1,19 @@
-# gopher-wood
+# gopher-wood <!-- omit in toc -->
 
 Official app for Gopher Wood Clinic.
 
+## Table of Contents <!-- omit in toc -->
+- [Getting started](#getting-started)
+  - [Running the project](#running-the-project)
+- [Features Sets](#features-sets)
+  - [Phase 1](#phase-1)
+- [Notes & Resources](#notes--resources)
+  - [PWAs (Progressive Web Apps)](#pwas-progressive-web-apps)
+  - [Database/Offline Functionality](#databaseoffline-functionality)
+  - [Design Principles](#design-principles)
+  - [Animations](#animations)
+  - [Security](#security)
+  - [Dev environment setup](#dev-environment-setup)
 
 ## Getting started
 
@@ -23,13 +35,22 @@ Open up [localhost:3000](http://localhost:3000) and start clicking around.
 Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 
-## Notes and Resources
+## Features Sets
+
+
+### Phase 1
+
+Build a simple PWA with client and server in place, including proper security measures. Sync with queue calling machine.
+
+
+## Notes & Resources
 
 
 ### PWAs (Progressive Web Apps)
 
-- [Google's article on PWA](https://developers.google.com/web/progressive-web-apps)
-- [MDN](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
+- [Google's on PWA](https://developers.google.com/web/progressive-web-apps)
+- [Awwwards on PWA](https://www.awwwards.com/PWA-ebook/en)
+- [MDN on PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
 - [An example of the entire PWA life cycle](https://dev.to/kefranabg/a-productive-stack-for-pwa-development-27o)
 - [Yet another guide](https://www.smashingmagazine.com/2018/11/guide-pwa-progressive-web-applications)
 - [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist)
@@ -49,6 +70,12 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 - [ZangoDB](https://github.com/erikolson186/zangodb)
 - [JsStore](https://jsstore.net)
 - [localForage](https://localforage.github.io/localForage)
+
+
+### Design Principles
+
+- [How to Design a Better Progressive Web App](https://www.telerik.com/blogs/how-to-design-a-better-progressive-web-app)
+- [Adobe XD UI kits](https://www.adobe.com/mena_en/products/xd/resources.html?promoid=WXYGJ27F&mv=other#panel-3)
 
 
 ### Animations
