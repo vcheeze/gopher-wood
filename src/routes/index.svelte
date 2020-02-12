@@ -45,7 +45,7 @@
   <figcaption>HIGH FIVE!</figcaption>
 </figure>
 
-<p class="b--black">
+<p>
   <strong>
     Try editing this file (src/routes/index.svelte) to test live reloading.
   </strong>
