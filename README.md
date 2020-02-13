@@ -1,31 +1,28 @@
-# sapper-template
+# gopher-wood <!-- omit in toc -->
 
-The default [Sapper](https://github.com/sveltejs/sapper) template, available for Rollup and webpack.
+Official app for Gopher Wood Clinic.
 
+## Table of Contents <!-- omit in toc -->
+- [Getting started](#getting-started)
+  - [Running the project](#running-the-project)
+- [Features Sets](#features-sets)
+  - [Phase 1](#phase-1)
+- [Notes & Resources](#notes--resources)
+  - [PWAs (Progressive Web Apps)](#pwas-progressive-web-apps)
+  - [Database/Offline Functionality](#databaseoffline-functionality)
+  - [Design Principles](#design-principles)
+  - [Animations](#animations)
+  - [Security](#security)
+  - [Dev environment setup](#dev-environment-setup)
 
 ## Getting started
 
-
-### Using `degit`
-
-[`degit`](https://github.com/Rich-Harris/degit) is a scaffolding tool that lets you create a directory from a branch in a repository. Use either the `rollup` or `webpack` branch in `sapper-template`:
-
-```bash
-# for Rollup
-npx degit "sveltejs/sapper-template#rollup" my-app
-# for webpack
-npx degit "sveltejs/sapper-template#webpack" my-app
-```
-
-
-### Using GitHub templates
-
-Alternatively, you can use GitHub's template feature with the [sapper-template-rollup](https://github.com/sveltejs/sapper-template-rollup) or [sapper-template-webpack](https://github.com/sveltejs/sapper-template-webpack) repositories.
+This project uses the [Sapper](https://github.com/sveltejs/sapper) template, available for Rollup and webpack.
 
 
 ### Running the project
 
-However you get the code, you can install dependencies and run the project in development mode with:
+Install dependencies and run the project in development mode with:
 
 ```bash
 cd my-app
@@ -38,72 +35,74 @@ Open up [localhost:3000](http://localhost:3000) and start clicking around.
 Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 
-## Structure
-
-Sapper expects to find two directories in the root of your project —  `src` and `static`.
+## Features Sets
 
 
-### src
+### Phase 1
 
-The [src](src) directory contains the entry points for your app — `client.js`, `server.js` and (optionally) a `service-worker.js` — along with a `template.html` file and a `routes` directory.
-
-
-#### src/routes
-
-This is the heart of your Sapper app. There are two kinds of routes — *pages*, and *server routes*.
-
-**Pages** are Svelte components written in `.svelte` files. When a user first visits the application, they will be served a server-rendered version of the route in question, plus some JavaScript that 'hydrates' the page and initialises a client-side router. From that point forward, navigating to other pages is handled entirely on the client for a fast, app-like feel. (Sapper will preload and cache the code for these subsequent pages, so that navigation is instantaneous.)
-
-**Server routes** are modules written in `.js` files, that export functions corresponding to HTTP methods. Each function receives Express `request` and `response` objects as arguments, plus a `next` function. This is useful for creating a JSON API, for example.
-
-There are three simple rules for naming the files that define your routes:
-
-* A file called `src/routes/about.svelte` corresponds to the `/about` route. A file called `src/routes/blog/[slug].svelte` corresponds to the `/blog/:slug` route, in which case `params.slug` is available to the route
-* The file `src/routes/index.svelte` (or `src/routes/index.js`) corresponds to the root of your app. `src/routes/about/index.svelte` is treated the same as `src/routes/about.svelte`.
-* Files and directories with a leading underscore do *not* create routes. This allows you to colocate helper modules and components with the routes that depend on them — for example you could have a file called `src/routes/_helpers/datetime.js` and it would *not* create a `/_helpers/datetime` route
+Build a simple PWA with client and server in place, including proper security measures. Sync with queue calling machine.
 
 
-### static
-
-The [static](static) directory contains any static assets that should be available. These are served using [sirv](https://github.com/lukeed/sirv).
-
-In your [service-worker.js](src/service-worker.js) file, you can import these as `files` from the generated manifest...
-
-```js
-import { files } from '@sapper/service-worker';
-```
-
-...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
+## Notes & Resources
 
 
-## Bundler config
+### PWAs (Progressive Web Apps)
 
-Sapper uses Rollup or webpack to provide code-splitting and dynamic imports, as well as compiling your Svelte components. With webpack, it also provides hot module reloading. As long as you don't do anything daft, you can edit the configuration files to add whatever plugins you'd like.
-
-
-## Production mode and deployment
-
-To start a production version of your app, run `npm run build && npm start`. This will disable live reloading, and activate the appropriate bundler plugins.
-
-You can deploy your application to any environment that supports Node 8 or above. As an example, to deploy to [Now](https://zeit.co/now), run these commands:
-
-```bash
-npm install -g now
-now
-```
+- [Google's on PWA](https://developers.google.com/web/progressive-web-apps)
+- [Awwwards on PWA](https://www.awwwards.com/PWA-ebook/en)
+- [MDN on PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
+- [An example of the entire PWA life cycle](https://dev.to/kefranabg/a-productive-stack-for-pwa-development-27o)
+- [Yet another guide](https://www.smashingmagazine.com/2018/11/guide-pwa-progressive-web-applications)
+- [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist)
+- [A Progressive Roadmap](https://cloudfour.com/thinks/a-progressive-roadmap-for-your-progressive-web-app)
 
 
-## Using external components
+### Database/Offline Functionality
 
-When using Svelte components installed from npm, such as [@sveltejs/svelte-virtual-list](https://github.com/sveltejs/svelte-virtual-list), Svelte needs the original component source (rather than any precompiled JavaScript that ships with the component). This allows the component to be rendered server-side, and also keeps your client-side app smaller.
+- Google's recommendations: [Cache API + IndexedDB](https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/offline-for-pwa)
+- [Guide to Cache API](https://www.monterail.com/blog/pwa-offline-dynamic-data)
+- [Guide to IndexedDB](https://itnext.io/indexeddb-your-second-step-towards-progressive-web-apps-pwa-dcbcd6cc2076)
+- [Yet another guide to IndexedDB](https://medium.com/@sahalsajjad/introduction-to-indexeddb-storing-data-in-browsers-2f8e5d0fb22)
+- Use [Lighthouse](https://github.com/GoogleChrome/lighthouse) to monitor performance
+- Google's tutorial for [building an offline-first, data-driven PWA](https://codelabs.developers.google.com/codelabs/workbox-indexeddb/index.html?index=..%2F..index#0)
+- [PouchDB](https://pouchdb.com)
+- [Dexie.js](https://dexie.org)
+- [ZangoDB](https://github.com/erikolson186/zangodb)
+- [JsStore](https://jsstore.net)
+- [localForage](https://localforage.github.io/localForage)
 
-Because of that, it's essential that the bundler doesn't treat the package as an *external dependency*. You can either modify the `external` option under `server` in [rollup.config.js](rollup.config.js) or the `externals` option in [webpack.config.js](webpack.config.js), or simply install the package to `devDependencies` rather than `dependencies`, which will cause it to get bundled (and therefore compiled) with your app:
 
-```bash
-npm install -D @sveltejs/svelte-virtual-list
-```
+### Design Principles
+
+- [How to Design a Better Progressive Web App](https://www.telerik.com/blogs/how-to-design-a-better-progressive-web-app)
+- [Adobe XD UI kits](https://www.adobe.com/mena_en/products/xd/resources.html?promoid=WXYGJ27F&mv=other#panel-3)
 
 
-## Bugs and feedback
+### Animations
 
-Sapper is in early development, and may have the odd rough edge here and there. Please be vocal over on the [Sapper issue tracker](https://github.com/sveltejs/sapper/issues).
+CSS:
+- [tachyons-animate](https://github.com/anater/tachyons-animate)
+- [Animista](https://animista.net/play/basic)
+- [Animating SVG with CSS](https://blog.logrocket.com/animating-svg-with-css-83e8e27d739c)
+- [Animates.css](https://github.com/daneden/animate.css)
+- [SVGO](https://github.com/svg/svgo) (for optimizing SVG files)
+- [SVG creation](https://www.smashingmagazine.com/2014/11/styling-and-animating-svgs-with-css)
+- [SVG drawing animation](https://www.cassie.codes/posts/creating-my-logo-animation)
+
+JS:
+- [GSAP](https://greensock.com)
+- [Vivus](http://maxwellito.github.io/vivus)
+- [Velocity.js](http://velocityjs.org/) (a jQuery-like but much more performant library)
+- [SVG.js](https://svgjs.com/docs/3.0)
+- [Lottie](http://airbnb.io/lottie/#/README)
+
+
+### Security
+
+- [JWT](https://jwt.io)
+
+
+### Dev environment setup
+
+- [Setup Sapper with Sass](https://medium.com/@sean_27490/svelte-sapper-with-sass-271fff662da9)
+
