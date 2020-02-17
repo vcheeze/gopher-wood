@@ -40,7 +40,7 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ### Technologies
 
-We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS styles. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Polka](https://github.com/lukeed/polka) instead of Express for the server.
+We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Polka](https://github.com/lukeed/polka) instead of Express for the server.
 
 ### Release Management and Naming Conventions
 
@@ -64,7 +64,7 @@ Simply put, `master` is the code base for production deployment. `dev` is used a
     </tr>
     <tr>
       <td><strong>Dev</strong></td>
-      <td>development</td>
+      <td>dev</td>
       <td>Accepts merges from <strong>Features</strong></td>
       <td>N/A</td>
     </tr>
