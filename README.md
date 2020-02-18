@@ -40,7 +40,31 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ### Technologies
 
-We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Polka](https://github.com/lukeed/polka) instead of Express for the server.
+We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS; read [this article by Adam Wathan](https://adamwathan.me/css-utility-classes-and-separation-of-concerns) for an idea of why we use functional CSS. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Polka](https://github.com/lukeed/polka) instead of Express for the server.
+
+With regards to Tachyons, how well it integrates with Sapper still remains to be seen. This is an ambitious attempt for us to use functional CSS, but we will remain open to other options as we develop our project - if an alternative comes up with a compelling argument to switch over, then we might. As of now, simply follow a few helpful guidelines:
+
+- Create a `export let styles = {}` in `<script>` of your Svelte files, define functional CSS classes there, then use it as a class for your markup, i.e.
+  ```HTML
+  <script>
+    export let styles = {
+      h1: 'f1 tc'
+    };
+  </script>
+  <h1 class={styles.h1}>Hello World!</h1>
+  ```
+- Pseudo elements such as `::before` and `::after` are not supported by Tachyons, so we will keep using semantic CSS to style them.
+- Svelte supports [dynamic CSS classes](https://svelte.dev/docs#class_name), in which case the styles of those classes will also remain in the semantic format, i.e.
+  ```HTML
+  <style>
+    .dynamic {
+      font-weight: bold;
+    }
+  </style>
+  <p class:dynamic={God.isGood()}></p>
+  ```
+
+And that's it! Go and get started on Svelte and Tachyons :)
 
 ### Release Management and Naming Conventions
 
