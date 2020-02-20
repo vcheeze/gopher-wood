@@ -61,7 +61,7 @@ With regards to Tachyons, how well it integrates with Sapper still remains to be
       font-weight: bold;
     }
   </style>
-  <p class:dynamic={God.isGood()}></p>
+  <p class:dynamic={condition.isTrue()}></p>
   ```
 
 And that's it! Go and get started on Svelte and Tachyons :)
