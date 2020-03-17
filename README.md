@@ -159,4 +159,6 @@ JS:
 
 ### Miscellaneous
 - [19 ways to become a better Node.js developer in 2019](https://medium.com/@me_37286/19-ways-to-become-a-better-node-js-developer-in-2019-ffd3a8fbfe38)
+- [ZEIT Now](https://zeit.co/vcheeze/gopher-wood)
+- [AWS Amplify](https://aws.amazon.com/registration-confirmation)
 
