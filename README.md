@@ -176,3 +176,13 @@ JS:
 - [Velocity.js](http://velocityjs.org/) (a jQuery-like but much more performant library)
 - [SVG.js](https://svgjs.com/docs/3.0)
 - [Lottie](http://airbnb.io/lottie/#/README)
+
+### Hosting
+
+- [10 Tips to Host Your Web Apps for Free](https://blog.patricktriest.com/host-webapps-free)
+
+### Miscellaneous
+- [19 ways to become a better Node.js developer in 2019](https://medium.com/@me_37286/19-ways-to-become-a-better-node-js-developer-in-2019-ffd3a8fbfe38)
+- [ZEIT Now](https://zeit.co/vcheeze/gopher-wood)
+- [AWS Amplify](https://aws.amazon.com/registration-confirmation)
+
