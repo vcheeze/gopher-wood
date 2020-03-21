@@ -2,22 +2,17 @@
   import Nav from '../components/Nav.svelte';
 
   export let segment;
+  export const styles = {
+    main: 'dtc v-mid pa4',
+  };
 </script>
 
 <style lang="scss" global>
   @import './styles/global.scss';
-  main {
-    position: relative;
-    max-width: 56em;
-    background-color: white;
-    padding: 2em;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
 </style>
 
 <Nav {segment} />
 
-<main>
+<main class={styles.main}>
   <slot />
 </main>

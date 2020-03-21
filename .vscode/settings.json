@@ -1,6 +1,9 @@
 {
-  "editor.formatOnSave": true,
   "[svelte]": {
-      "editor.defaultFormatter": "JamesBirtles.svelte-vscode"
+    "editor.defaultFormatter": "JamesBirtles.svelte-vscode",
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.formatOnSave": true
   }
 }
