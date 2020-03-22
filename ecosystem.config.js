@@ -1,5 +1,5 @@
 module.exports = {
-  app: [{
+  apps: [{
     name: 'gopher-wood',
     script: 'npm run dev',
     env: {
