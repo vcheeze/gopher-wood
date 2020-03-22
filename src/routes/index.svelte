@@ -1,7 +1,7 @@
 <script>
   export const styles = {
-    queueNumHeader: 'tc f1 ma0',
-    queueNumBody: 'tc f-6 tracked-mega ma0 green',
+    queueNumHeader: 'tc f2 f1-ns ma0',
+    queueNumBody: 'ma0 tc f1 f-6-ns tracked-mega ti1 green',
   };
 </script>
 
