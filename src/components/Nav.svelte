@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { locale } from 'svelte-i18n';
   export let segment;
 
   /*--- setup for GSAP animation ---*/
@@ -27,17 +28,24 @@
         'rotate'
       );
   });
+
   function handleBurgerClick() {
     menuToggle.reversed() ? menuToggle.restart() : menuToggle.reverse();
     displayMenu = !displayMenu;
   }
   /*--- END setup for GSAP animation ---*/
 
+  function switchLocale() {
+    locale.set($locale === 'en' ? 'zh-Hant' : 'en');
+  }
+
   const styles = {
-    nav: 'absolute w-100 ma0 ph3 fw3 z-999 bb b--washed-green', // TODO consider changing z-index later
+    nav:
+      'flex justify-between absolute w-100 ma0 ph3 fw3 z-999 bb b--washed-green', // TODO consider changing z-index later
     ul: 'ma0 pa0 dn db-ns',
     li: 'db pointer fl',
     a: 'no-underline pv3 ph2 db',
+    locale: 'dib pv3 ph2 pointer dim',
     burger: 'pt2 dn-ns',
     menu: 'absolute dt vh-100 w-100 bg-dark-gray', // add z-index?
     menuList: 'ma0 pa0 dtc v-mid tc',
@@ -113,22 +121,28 @@
       vector-effect="non-scaling-stroke" />
     <path class="bot" d="M0 19h30v2H0z" fill="#333333" />
   </svg>
+  <div>
+    <span class={styles.locale} on:click={switchLocale}>
+      {$locale === 'en' ? '中' : 'en'}
+    </span>
+    <!-- <span class={styles.locale} on:click={() => switchLocale('en')}>En</span> -->
+  </div>
 </nav>
 
 {#if displayMenu}
   <div class={styles.menu}>
     <ul class={styles.menuList}>
-      <li class={styles.menuItem}>
+      <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a class={styles.a} class:selected={segment === undefined} href=".">
           home
         </a>
       </li>
-      <li class={styles.menuItem}>
+      <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a class={styles.a} class:selected={segment === 'about'} href="about">
           about
         </a>
       </li>
-      <li class={styles.menuItem}>
+      <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a
           class={styles.a}
           rel="prefetch"
