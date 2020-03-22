@@ -3,7 +3,7 @@
 	"theme_color": "#333333",
 	"name": "Gopher Wood",
 	"short_name": "gopher",
-	"display": "minimal-ui",
+	"display": "standalone",
 	"start_url": "/",
 	"icons": [
 		{
