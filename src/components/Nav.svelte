@@ -46,7 +46,7 @@
     li: 'db pointer fl',
     a: 'no-underline pv3 ph2 db',
     locale: 'dib pv3 ph2 pointer dim',
-    burger: 'pt2 dn-ns',
+    burger: 'dn-ns',
     menu: 'absolute dt vh-100 w-100 bg-dark-gray', // add z-index?
     menuList: 'ma0 pa0 dtc v-mid tc',
     menuItem: 'db pointer f2 near-white',
@@ -105,6 +105,7 @@
   <svg
     id="burger"
     width="30"
+    height="53"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 30 30"
     class={styles.burger}
