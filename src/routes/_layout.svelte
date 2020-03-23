@@ -8,7 +8,6 @@
 
 <script>
   import Nav from '../components/Nav.svelte';
-  import A2hs from '../components/A2hs.svelte';
 
   export let segment;
 
@@ -22,7 +21,6 @@
 </style>
 
 <Nav {segment} />
-<A2hs />
 
 <main class={styles.main}>
   <slot />
