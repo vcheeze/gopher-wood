@@ -1,8 +1,16 @@
 {
+  "common": {
+    "gopherWood": "Gopher Wood",
+    "clinic": "Gopher Wood Clinic"
+  },
   "page": {
     "about": {
       "title": "About Gopher Wood",
       "description": "Gopher Wood is a gift from God."
+    },
+    "home": {
+      "title": "Home"
     }
-  }
+  },
+  "currentNumber": "Current Number"
 }
