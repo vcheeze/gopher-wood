@@ -1,7 +1,10 @@
+import global from './number';
+
 const getQueueNumber = (req, res) => {
-  console.log('==> Getting Queue number...');
+  // console.log('==> Getting Queue number...');
   // TODO add logic here to store number in db, etc.
-  res.end('Got Queue Number!');
+  // console.log(global.number);
+  res.end(JSON.stringify({num:global.number}));
 };
 
 export default getQueueNumber;
