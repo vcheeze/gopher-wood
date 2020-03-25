@@ -1,0 +1,16 @@
+{
+  "common": {
+    "gopherWood": "歌斐木",
+    "clinic": "歌斐木診所"
+  },
+  "page": {
+    "about": {
+      "title": "關於歌斐木",
+      "description": "歌斐木是上帝的禮物"
+    },
+    "home": {
+      "title": "首頁"
+    }
+  },
+  "currentNumber": "即時診號"
+}

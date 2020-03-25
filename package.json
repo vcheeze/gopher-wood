@@ -14,9 +14,12 @@
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
+    "@rollup/plugin-json": "^4.0.2",
     "compression": "^1.7.1",
     "polka": "next",
     "sirv": "^0.4.0",
+    "svelte-awesome": "^2.2.1",
+    "svelte-i18n": "^3.0.2",
     "tachyons-sass": "^4.9.5"
   },
   "devDependencies": {
