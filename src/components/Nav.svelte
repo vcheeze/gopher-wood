@@ -143,15 +143,6 @@
           about
         </a>
       </li>
-      <li class={styles.menuItem} on:click={handleBurgerClick}>
-        <a
-          class={styles.a}
-          rel="prefetch"
-          class:selected={segment === 'blog'}
-          href="blog">
-          blog
-        </a>
-      </li>
     </ul>
   </div>
 {/if}
