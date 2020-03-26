@@ -2,8 +2,9 @@ import sirv from 'sirv';
 import polka from 'polka';
 import compression from 'compression';
 import * as sapper from '@sapper/server';
+
 import { init } from 'svelte-i18n';
-import { getQueueNumber } from './api';
+import { getQueueNumber, updateQueueNumber } from './api';
 
 init({
 	fallbackLocale: 'en',
@@ -15,7 +16,8 @@ const dev = NODE_ENV === 'development';
 
 const app = polka();
 
-app.get('/api/queue-number', getQueueNumber);
+app.get('/api/get-number', getQueueNumber);
+app.get('/api/update-number', updateQueueNumber);
 
 app.use(
 	compression({ threshold: 0 }),
