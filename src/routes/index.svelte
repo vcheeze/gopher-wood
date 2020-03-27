@@ -36,5 +36,5 @@
 
 <div>
   <p class={styles.queueNumHeader}>{$_('currentNumber')}</p>
-  <p class={styles.queueNumBody}>{queueNumber}</p>
+  <p class={styles.queueNumBody}>{queueNumber || '0000'}</p>
 </div>
