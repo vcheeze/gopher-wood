@@ -4,7 +4,6 @@ import compression from 'compression';
 import * as sapper from '@sapper/server';
 
 import { init } from 'svelte-i18n';
-import { getQueueNumber, updateQueueNumber } from './api';
 
 init({
 	fallbackLocale: 'en',
@@ -15,9 +14,6 @@ const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
 const app = polka();
-
-app.get('/api/get-number', getQueueNumber);
-app.get('/api/update-number', updateQueueNumber);
 
 app.use(
 	compression({ threshold: 0 }),

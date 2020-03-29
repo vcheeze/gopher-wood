@@ -5,7 +5,7 @@
   let queueNumber;
 
   onMount(() => {
-    fetch('/api/get-number')
+    fetch('/api/getQueueNumber')
       .then(response => {
         if (response.status !== 200) {
           console.warn(
