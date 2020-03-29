@@ -1,4 +1,4 @@
-import global from '../../api/number';
+import global from './number';
 
 export async function get(req, res, next) {
   global.number = req.query.v1;
