@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@babel/helper-compilation-targets": "^7.8.4",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
@@ -43,7 +44,7 @@
     "rollup-plugin-babel": "^4.0.2",
     "rollup-plugin-svelte": "^5.0.1",
     "rollup-plugin-terser": "^5.2.0",
-    "sapper": "^0.27.0",
+    "sapper": "^0.27.11",
     "svelte": "^3.0.0",
     "svelte-preprocess": "^3.3.1"
   }
