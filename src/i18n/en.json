@@ -3,6 +3,10 @@
     "gopherWood": "Gopher Wood",
     "clinic": "Gopher Wood Clinic"
   },
+  "nav": {
+    "home": "home",
+    "about": "about"
+  },
   "page": {
     "about": {
       "title": "About Gopher Wood",

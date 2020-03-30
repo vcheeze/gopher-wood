@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { locale } from 'svelte-i18n';
+  import { locale, _ } from 'svelte-i18n';
   export let segment;
 
   /*--- setup for GSAP animation ---*/
@@ -81,12 +81,12 @@
   <ul class={styles.ul}>
     <li class={styles.li}>
       <a class={styles.a} class:selected={segment === undefined} href=".">
-        home
+        {$_('nav.home')}
       </a>
     </li>
     <li class={styles.li}>
       <a class={styles.a} class:selected={segment === 'about'} href="about">
-        about
+        {$_('nav.about')}
       </a>
     </li>
   </ul>
@@ -123,12 +123,12 @@
     <ul class={styles.menuList}>
       <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a class={styles.a} class:selected={segment === undefined} href=".">
-          home
+          {$_('nav.home')}
         </a>
       </li>
       <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a class={styles.a} class:selected={segment === 'about'} href="about">
-          about
+          {$_('nav.about')}
         </a>
       </li>
     </ul>

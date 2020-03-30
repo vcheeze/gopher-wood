@@ -1,7 +1,7 @@
 import sirv from 'sirv';
 import polka from 'polka';
 import compression from 'compression';
-// import helmet from 'helmet';
+import helmet from 'helmet';
 import * as sapper from '@sapper/server';
 
 import { init } from 'svelte-i18n';
@@ -17,7 +17,7 @@ const dev = NODE_ENV === 'development';
 const app = polka();
 
 app.use(
-	// helmet(),
+	helmet(),
 	compression({ threshold: 0 }),
 	sirv('static', { dev }),
 	sapper.middleware()
