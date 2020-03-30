@@ -3,6 +3,10 @@
     "gopherWood": "歌斐木",
     "clinic": "歌斐木診所"
   },
+  "nav": {
+    "home": "首頁",
+    "about": "關於"
+  },
   "page": {
     "about": {
       "title": "關於歌斐木",
