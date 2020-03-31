@@ -2,7 +2,8 @@
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
-  let qNumHeader, qNumBody;
+  let qNumHeader = '',
+    qNumBody = '';
 
   function getQueueNum() {
     fetch('/api/getQueueNumber')
