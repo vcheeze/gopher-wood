@@ -4,7 +4,7 @@
 
   let qNumHeader, qNumBody;
 
-  onMount(() => {
+  function getQueueNum() {
     fetch('/api/getQueueNumber')
       .then(response => {
         if (response.status !== 200) {
@@ -25,10 +25,22 @@
             qNumBody = num.toString().padStart(4, '0');
           }
         });
+        poll();
       })
       .catch(err => {
         console.log(`==> err: ${err}`);
       });
+  }
+
+  function poll() {
+    setTimeout(function() {
+      getQueueNum();
+    }, 5000);
+  }
+
+  onMount(() => {
+    getQueueNum();
+    poll();
   });
 
   const styles = {

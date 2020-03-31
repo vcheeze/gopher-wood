@@ -5,8 +5,9 @@ Official app for Gopher Wood Clinic.
 ## Table of Contents <!-- omit in toc -->
 
 - [Getting started](#getting-started)
-  - [Running the project](#running-the-project)
+  - [Running the project locally](#running-the-project-locally)
 - [For Developers](#for-developers)
+  - [Architecture](#architecture)
   - [Technologies](#technologies)
   - [Release Management and Naming Conventions](#release-management-and-naming-conventions)
   - [Features Sets](#features-sets)
@@ -17,17 +18,20 @@ Official app for Gopher Wood Clinic.
   - [Security](#security)
   - [Dev environment setup](#dev-environment-setup)
   - [Animations](#animations)
+  - [DevOps](#devops)
+  - [Hosting](#hosting)
+  - [Miscellaneous](#miscellaneous)
 
 ## Getting started
 
 This project uses the [Sapper](https://github.com/sveltejs/sapper) template, available for Rollup and webpack.
 
-### Running the project
+### Running the project locally
 
 Install dependencies and run the project in development mode with:
 
 ```bash
-cd my-app
+cd gopher-wood
 npm install # or yarn
 npm run dev
 ```
@@ -37,6 +41,14 @@ Open up [localhost:3000](http://localhost:3000) and start clicking around.
 Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ## For Developers
+
+### Architecture
+
+Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood). We utilize AWS for hosting the app. The domain is currently bought from [GoDaddy](https://www.godaddy.com). GoDaddy is configured in its `www` CNAME record to point to an Application Load Balancer on AWS, which in turns routes port 80 to port 3000 of our EC2 instance (running Ubuntu 18), on which our app is running.
+
+In the EC2 instance, [pm2](https://pm2.keymetrics.io/) is utilized to serve the app. In order to deploy the app again, simply `git pull` in the repo (found in `~/gopher-wood/`), `npm i` if `package.json` has been changed, then `npm run build`. pm2 should pick up the changes automatically from `__sapper__/build/` and serve the updated files.
+
+For real time functionality, we are thinking of using [RethinkDB](https://rethinkdb.com). That has yet to be set up in the server.
 
 ### Technologies
 
@@ -176,6 +188,9 @@ JS:
 - [Velocity.js](http://velocityjs.org/) (a jQuery-like but much more performant library)
 - [SVG.js](https://svgjs.com/docs/3.0)
 - [Lottie](http://airbnb.io/lottie/#/README)
+
+### DevOps
+- [Node-Express app deployment](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment)
 
 ### Hosting
 
