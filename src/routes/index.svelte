@@ -2,7 +2,7 @@
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
-  let queueNumber;
+  let qNumHeader, qNumBody;
 
   onMount(() => {
     fetch('/api/getQueueNumber')
@@ -15,8 +15,15 @@
         }
         console.log('==> response: ', response);
         response.json().then(data => {
-          console.log('==> data: ', data);
-          queueNumber = data.num.toString().padStart(4, '0');
+          // console.log('==> data: ', data);
+          const { num } = data;
+          if (num > 999) {
+            qNumHeader = 'qNumHeader.closed';
+            qNumBody = '----';
+          } else {
+            qNumHeader = 'qNumHeader.currentNumber';
+            qNumBody = num.toString().padStart(4, '0');
+          }
         });
       })
       .catch(err => {
@@ -25,8 +32,8 @@
   });
 
   const styles = {
-    queueNumHeader: 'tc f2 f1-ns ma0',
-    queueNumBody: 'ma0 tc f1 f-6-ns tracked-mega ti1 green',
+    qNumHeader: 'tc f2 f1-ns ma0',
+    qNumBody: 'ma0 tc f1 f-6-ns tracked-mega ti1 green',
   };
 </script>
 
@@ -35,6 +42,6 @@
 </svelte:head>
 
 <div>
-  <p class={styles.queueNumHeader}>{$_('currentNumber')}</p>
-  <p class={styles.queueNumBody}>{queueNumber || '0000'}</p>
+  <p class={styles.qNumHeader}>{$_(qNumHeader)}</p>
+  <p class={styles.qNumBody}>{qNumBody || '0000'}</p>
 </div>

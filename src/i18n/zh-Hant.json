@@ -16,5 +16,6 @@
       "title": "首頁"
     }
   },
-  "currentNumber": "即時診號"
+  "qNumHeader.closed": "修診中",
+  "qNumHeader.currentNumber": "即時診號"
 }
