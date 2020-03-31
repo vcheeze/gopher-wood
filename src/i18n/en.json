@@ -16,5 +16,6 @@
       "title": "Home"
     }
   },
-  "currentNumber": "Current Number"
+  "qNumHeader.closed": "We are closed right now",
+  "qNumHeader.currentNumber": "Current Number"
 }
