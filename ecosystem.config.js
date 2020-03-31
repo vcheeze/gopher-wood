@@ -4,7 +4,7 @@ module.exports = {
     script: 'node __sapper__/build',
     exec_mode: 'cluster',
     instances: 1,
-    watch: false,
+    watch: true,
     env: {
       NODE_ENV: 'development',
     },
