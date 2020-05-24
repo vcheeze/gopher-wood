@@ -9,6 +9,7 @@ import json from '@rollup/plugin-json';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 
+
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
@@ -37,7 +38,8 @@ export default {
 			json(),
 			resolve({
 				browser: true,
-				dedupe: ['svelte']
+				dedupe: ['svelte'],
+				mainFields: ['main']
 			}),
 			commonjs(),
 
@@ -81,7 +83,8 @@ export default {
 			}),
 			json(),
 			resolve({
-				dedupe: ['svelte']
+				dedupe: ['svelte'],
+				mainFields: ['main']
 			}),
 			commonjs()
 		],

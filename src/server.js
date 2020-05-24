@@ -3,7 +3,6 @@ import polka from 'polka';
 import compression from 'compression';
 import helmet from 'helmet';
 import * as sapper from '@sapper/server';
-
 import { init } from 'svelte-i18n';
 
 init({
