@@ -7,14 +7,13 @@
 
   const queueNumRef = db.ref('queue-number');
   queueNumRef.on('value', snapshot => {
-    const num = snapshot.val();
-    console.log('==> num: ', num);
-    if (num > 999) {
+    const { currentNum } = snapshot.val();
+    if (currentNum > 999) {
       qNumHeader = 'qNumHeader.closed';
       qNumBody = '----';
     } else {
       qNumHeader = 'qNumHeader.currentNumber';
-      qNumBody = num.currentNum.toString().padStart(4, '0');
+      qNumBody = currentNum.toString().padStart(4, '0');
     }
   });
 
