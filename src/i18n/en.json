@@ -14,6 +14,24 @@
     },
     "home": {
       "title": "Home"
+    },
+    "ivc": {
+      "title": "Make an Appointment",
+      "description": "Please fill out this form to make an appointment."
+    }
+  },
+  "form": {
+    "ivc": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Full Name"
+      },
+      "date": {
+        "label": "Date"
+      },
+      "time": {
+        "label": "Time"
+      }
     }
   },
   "qNumHeader.closed": "Closed",

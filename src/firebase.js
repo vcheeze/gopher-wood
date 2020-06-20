@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
-import 'firebase/database';
+import '@firebase/database';
+// import '@firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,4 +21,10 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
-export { db };
+const firestore = {
+  baseUrl: 'https://firestore.googleapis.com/v1',
+  ivcAppointments: 'projects/gopher-wood/databases/(default)/documents/ivc-appointments',
+  apiKey: 'AIzaSyAmFDksTdBvyGUFnvoSMCwbW53TBuXO6K8'
+};
+
+export { db, firestore };

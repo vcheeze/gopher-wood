@@ -14,6 +14,24 @@
     },
     "home": {
       "title": "首頁"
+    },
+    "ivc": {
+      "title": "預約注射",
+      "description": "請填寫以下表單以預約注射"
+    }
+  },
+  "form": {
+    "ivc": {
+      "fullName": {
+        "label": "姓名",
+        "placeholder": "姓名"
+      },
+      "date": {
+        "label": "日期"
+      },
+      "time": {
+        "label": "時間"
+      }
     }
   },
   "qNumHeader.closed": "休診中",

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "gopher-wood",
+  "private_key_id": "f9fc137365d0fa9bbc3c5c6170d14809d27ccaa1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDQDmABUHVDrOWO\ni5+aqQQ37ME1gGdMMt00xFx3BG76XbdnmjMwVhUDL5AkgbkIfj5wHexXGVO1Dg95\nvdKWjepfnRoELK+WB4R9gzib5044Xe3N8o1NlXofJ2m5PP9KKm/YsDukDsaTzPCM\nJPftW6F19ni5ziwN3l6oB2vuP/ZGL5udq4ROR3LJkVOaDLjDrai7RCdPcHpITc+R\nhhE2+JH8HNMeA+IniwHg3L28HemkvE4AuGcgQiLG3haP8I8TRjgzZAKK9SwfEWuo\nrkdPAxevkwtgF0jbx8G86gKXJhkmaxecEkaK1pRsQ4lcKR5EXBzSQB3RyFt7WZYA\nNTZL+HVLAgMBAAECggEAAgyaMnkd5pA95JUIeef/RCO/VW0R12TK2/mxJXT0OOAS\nbeFNbsTySQk/ZLSoY2aG6+jHiqYTtn1QdrUBbX0xWUa9WlwsUJB7ZBcWSCbTlOeL\n75LbhG+b99GWD36DzzGyz1IRDFEe8Ja8qcy1am+UHArU7pOSyIIvsXz9OagEn3VV\nCRRRVbbVRKnlSvuXOFk+KNYOdpBpZH9HeTzUIgQqdWLjaLpxGn76qFeB1zY8Vq19\nMJ07oisAP/h6YT90EKDes/VmPoDWEoWxtysqIh5olPwwKKsinBGKKRrVGbgM/Fs1\n5hvUJsPpU3pMW5p8gyB238vptm2+DzjVCC8WOYY0sQKBgQDudfyDBWQ6QvHPanfm\n3k44hCu3JZgCi8/t6PQWYPXy4PYHGuktw6Xn9OYEMysTfTTKGSTWMoRS1YHuKUlc\n4qkiQxxz47cBLnx6NgKUZ+oLoHFFHvFG+75s9RXVLseUQAYrvH813gAP1c2iIBUI\nmiNSiiqaXQADft8IaV+uId2iUQKBgQDfW+TG+RslsGYHG/8GqrEiDiksse0bkJmn\njRXl4MxMZV/8vyXgPP8EYOSbgWIPfwvUxLT626SpSVAe/dIaKeW6l5nFBmSbbf9V\ncYdKfJirh/w9SfSFdnva+Dc+cNYCqA0sZCToYkD3cey/aoqepHsFRTGq+tk0G9o6\nsfQbDsR62wKBgQCla5XC8j+IJx6F627H6hlLHW0R/PNJeOHCQaLpz1NurF4fqaxu\ngdWaZooWCcTtHSM8u1qReLPQnqomo99vnxEDYpjfT+2I1U2mnccGWlvCuwc4kvF/\nc22zOgVuQKhUkGF3f6ijnqBeW8vtluHgeMTeIljRgoha5G0l8atdKcMNMQKBgEQO\nmwHpq1Trj9sAs89TOU/YIsGkoUux3q/H9HEr8vQgO4QmtiLCUy4BXAbqAHgaTP+S\nxFZfkKeoWAppaphgRch6Ivd+wC7/8DoXspKGrnotoDUIkMIN3SVWVnbnKL58eC8b\ngIdyULtU8j9M9lnqYjWz5LNlZcNT7UXPLUMFV+bbAoGAM0S4NlM2mQwZyK3S3O7f\nQSlDUv5JWssR5vKkG+My70X6NMDaw1Yo2ikGNYxpOhDa1CeGR471DbT7iHMuDXev\npXZ5htL615/fTP107eI1i7WUU6tRh2SMudJTroyWdjHVwe8nRVooBA3qD+XSHb95\nGnlTB2a0zRz/39d4kJFLjX0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-plz8t@gopher-wood.iam.gserviceaccount.com",
+  "client_id": "105885193542042004439",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-plz8t%40gopher-wood.iam.gserviceaccount.com"
+}

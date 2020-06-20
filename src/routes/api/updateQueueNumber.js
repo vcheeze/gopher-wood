@@ -7,8 +7,10 @@ export async function get(req, res, next) {
     const queueNumRef = db.ref('queue-number');
     queueNumRef.update({ 'currentNum': +v1 });
     
-    return (res.statusCode = 200, res.end('Set Queue Number!'));
+    res.statusCode = 200;
+    res.end(JSON.stringify({ success: true, message: `Queue number set to ${v1}` }));
   } else {
-    return (res.statusCode = 403, res.end('Fail!'));
+    res.statusCode = 403;
+    res.end(JSON.stringify({ success: false, message: 'Failed to set queue number.' }));
   }
 }
