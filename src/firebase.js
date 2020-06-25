@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,10 +15,22 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+// firebase.auth().signInAnonymously().catch(function(err) {
+//   var errCode = err.code;
+//   var errorMessage = err.message;
+// });
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     var isAnonymous = user.isAnonymous;
+//     var uid = user.uid;
+//   } else {
+//     // user is signed out
+//   }
+// });
 
-// export const auth = firebase.auth();
+const auth = firebase.auth();
 // export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 const db = firebase.database();
 
-export { db };
+export { auth, db };

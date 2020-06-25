@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { db } from '../firebase';
+  import { auth, db } from '../firebase';
 
   let qNumHeader = '',
     qNumBody = '';
@@ -12,6 +12,18 @@
   };
 
   onMount(() => {
+    auth.signInAnonymously().catch(function(err) {
+      var errCode = err.code;
+      var errorMessage = err.message;
+    });
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+      } else {
+        // user is signed out
+      }
+    });
     const queueNumRef = db.ref('queue-number');
     queueNumRef.on('value', snapshot => {
       const { currentNum } = snapshot.val();
