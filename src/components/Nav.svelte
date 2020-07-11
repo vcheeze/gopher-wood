@@ -29,6 +29,11 @@
       );
   });
 
+  $: imageUri =
+    $locale === 'en'
+      ? '/images/clinic_name_en.svg'
+      : '/images/clinic_name_zh.svg';
+
   function handleBurgerClick() {
     menuToggle.reversed() ? menuToggle.restart() : menuToggle.reverse();
     displayMenu = !displayMenu;
@@ -42,11 +47,13 @@
   const styles = {
     nav:
       'flex justify-between absolute w-100 ma0 ph3 fw3 z-999 bb b--washed-green', // TODO consider changing z-index later
-    ul: 'ma0 pa0 dn db-ns',
+    logoImg: 'dib v-mid',
+    ulContainer: 'flex-auto',
+    ul: 'ma0 pv0 ph3 dn db-ns',
     li: 'db pointer fl',
     a: 'no-underline pv3 ph2 db',
     locale: 'dib pv3 ph2 pointer dim',
-    burger: 'dn-ns',
+    burger: 'dn-ns pr2',
     menu: 'absolute dt vh-100 w-100 bg-dark-gray', // add z-index?
     menuList: 'ma0 pa0 dtc v-mid tc',
     menuItem: 'db pointer f2 near-white',
@@ -54,6 +61,14 @@
 </script>
 
 <style>
+  .logo {
+    line-height: 56px;
+  }
+
+  .logo > img {
+    height: 24px;
+  }
+
   /* clearfix */
   ul::after {
     content: '';
@@ -78,18 +93,6 @@
 </style>
 
 <nav class={styles.nav}>
-  <ul class={styles.ul}>
-    <li class={styles.li}>
-      <a class={styles.a} class:selected={segment === undefined} href=".">
-        {$_('nav.home')}
-      </a>
-    </li>
-    <li class={styles.li}>
-      <a class={styles.a} class:selected={segment === 'about'} href="about">
-        {$_('nav.about')}
-      </a>
-    </li>
-  </ul>
   <svg
     id="burger"
     width="30"
@@ -110,6 +113,23 @@
       vector-effect="non-scaling-stroke" />
     <path class="bot" d="M0 19h30v2H0z" fill="#333333" />
   </svg>
+  <a class="logo" href="/">
+    <img class={styles.logoImg} src={imageUri} alt="gopherwoodclinic.org" />
+  </a>
+  <div class={styles.ulContainer}>
+    <ul class={styles.ul}>
+      <li class={styles.li}>
+        <a class={styles.a} class:selected={segment === undefined} href=".">
+          {$_('nav.home')}
+        </a>
+      </li>
+      <li class={styles.li}>
+        <a class={styles.a} class:selected={segment === 'about'} href="about">
+          {$_('nav.about')}
+        </a>
+      </li>
+    </ul>
+  </div>
   <div>
     <span class={styles.locale} on:click={switchLocale}>
       {$locale === 'en' ? '中' : 'en'}
