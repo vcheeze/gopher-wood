@@ -1,8 +1,4 @@
 {
-  "common": {
-    "gopherWood": "Gopher Wood",
-    "clinic": "Gopher Wood Clinic"
-  },
   "nav": {
     "home": "home",
     "about": "about"
@@ -14,8 +10,20 @@
     },
     "home": {
       "title": "Home"
+    },
+    "ivc": {
+      "title": "IVC Appointment"
     }
   },
   "qNumHeader.closed": "Closed",
-  "qNumHeader.currentNumber": "Current Number"
+  "qNumHeader.currentNumber": "Current Number",
+  "clinic": {
+    "fullName": "Gopher Wood Clinic",
+    "name": "Gopher Wood",
+    "openingHours": {
+      "title": "Opening Hours",
+      "weekdays": "Mon - Fri | 9:00 - 13:00， 17:00 - 21:00 (16:00 - 17:00 appointments-only）",
+      "weekend": "Sat | 9:00 - 13:00"
+    }
+  }
 }

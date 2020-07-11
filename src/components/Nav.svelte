@@ -123,11 +123,11 @@
           {$_('nav.home')}
         </a>
       </li>
-      <li class={styles.li}>
+      <!-- <li class={styles.li}>
         <a class={styles.a} class:selected={segment === 'about'} href="about">
           {$_('nav.about')}
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
   <div>
@@ -146,11 +146,11 @@
           {$_('nav.home')}
         </a>
       </li>
-      <li class={styles.menuItem} on:click={handleBurgerClick}>
+      <!-- <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a class={styles.a} class:selected={segment === 'about'} href="about">
           {$_('nav.about')}
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
 {/if}
