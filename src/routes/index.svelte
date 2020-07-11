@@ -7,6 +7,7 @@
     qNumBody = '';
 
   const styles = {
+    logo: 'tc',
     qNumHeader: 'tc f2 f1-ns ma0',
     qNumBody: 'ma0 tc f1 f-6-ns tracked-mega ti1 green',
   };
@@ -42,6 +43,9 @@
   <title>Home - Gopher Wood</title>
 </svelte:head>
 
+<div class={styles.logo}>
+  <img src="/images/logo.svg" alt="logo image" />
+</div>
 <div>
   <p class={styles.qNumHeader}>{$_(qNumHeader)}</p>
   <p class={styles.qNumBody}>{qNumBody || '0000'}</p>
