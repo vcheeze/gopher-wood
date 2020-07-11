@@ -10,6 +10,7 @@
     logo: 'tc',
     qNumHeader: 'tc f2 f1-ns ma0',
     qNumBody: 'ma0 tc f1 f-6-ns tracked-mega ti1 green',
+    hours: 'tc',
   };
 
   onMount(() => {
@@ -49,4 +50,7 @@
 <div>
   <p class={styles.qNumHeader}>{$_(qNumHeader)}</p>
   <p class={styles.qNumBody}>{qNumBody || '0000'}</p>
+  <p class={styles.hours}>{$_('clinic.openingHours.title')}</p>
+  <p class={styles.hours}>{$_('clinic.openingHours.weekdays')}</p>
+  <p class={styles.hours}>{$_('clinic.openingHours.weekend')}</p>
 </div>

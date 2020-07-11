@@ -1,8 +1,4 @@
 {
-  "common": {
-    "gopherWood": "歌斐木",
-    "clinic": "歌斐木診所"
-  },
   "nav": {
     "home": "首頁",
     "about": "關於"
@@ -14,8 +10,20 @@
     },
     "home": {
       "title": "首頁"
+    },
+    "ivc": {
+      "title": "預約注射"
     }
   },
   "qNumHeader.closed": "休診中",
-  "qNumHeader.currentNumber": "即時診號"
+  "qNumHeader.currentNumber": "即時診號",
+  "clinic": {
+    "fullName": "歌斐木診所",
+    "name": "歌斐木",
+    "openingHours": {
+      "title": "看診時間",
+      "weekdays": "週一至週五 | 9:00 - 13:00， 17:00 - 21:00 (16:00 - 17:00 約診）",
+      "weekend": "週六 | 9:00 - 13:00"
+    }
+  }
 }
