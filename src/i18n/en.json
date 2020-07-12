@@ -20,6 +20,7 @@
   "clinic": {
     "fullName": "Gopher Wood Clinic",
     "name": "Gopher Wood",
+    "description": "Gopher Wood Clinic. Click to learn more.",
     "openingHours": {
       "title": "Opening Hours",
       "weekdays": "Mon - Fri | 9:00 - 13:00， 17:00 - 21:00 (16:00 - 17:00 appointments-only）",

@@ -41,7 +41,12 @@
 </script>
 
 <svelte:head>
-  <title>Home - Gopher Wood</title>
+  <title>{$_('clinic.fullName')}</title>
+  <meta name="description" content={$_('clinic.description')} />
+  <meta property="og:title" content={$_('clinic.fullName')} />
+  <meta property="og:description" content={$_('clinic.description')} />
+  <meta property="og:url" content="http://www.gopherwoodclinic.org" />
+  <link rel="canonical" href="http://www.gopherwoodclinic.org" />
 </svelte:head>
 
 <div class={styles.logo}>

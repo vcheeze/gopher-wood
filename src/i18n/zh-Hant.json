@@ -20,6 +20,7 @@
   "clinic": {
     "fullName": "歌斐木診所",
     "name": "歌斐木",
+    "description": "歌斐木診所",
     "openingHours": {
       "title": "看診時間",
       "weekdays": "週一至週五 | 9:00 - 13:00， 17:00 - 21:00 (16:00 - 17:00 約診）",
