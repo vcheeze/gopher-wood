@@ -41,8 +41,13 @@
 </script>
 
 <svelte:head>
-  <title>{$_('clinic.fullName')}</title>
-  <meta name="description" content={$_('clinic.description')} />
+  <!-- <title>{$_('clinic.fullName')}</title> -->
+  <!-- <meta name="description" content={$_('clinic.description')} /> -->
+  <title>歌斐木診所</title>
+  <meta
+    name="description"
+    content="歌斐木診所。回歸起初創造之道，追求全人健康。" />
+  <meta property="og:type" content="website" />
   <meta property="og:title" content={$_('clinic.fullName')} />
   <meta property="og:description" content={$_('clinic.description')} />
   <meta property="og:url" content="http://www.gopherwoodclinic.org" />
