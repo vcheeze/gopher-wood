@@ -48,7 +48,9 @@ Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood).
 
 In the EC2 instance, [pm2](https://pm2.keymetrics.io/) is utilized to serve the app. In order to deploy the app again, simply `git pull` in the repo (found in `~/gopher-wood/`), `npm i` if `package.json` has been changed, then `npm run build`. pm2 should pick up the changes automatically from `__sapper__/build/` and serve the updated files. If your changes are not reflected, simply run `pm2 restart [PID of our process]` in the terminal. You can find the PID by entering `pm2 list`.
 
-For real time functionality, we are thinking of using [RethinkDB](https://rethinkdb.com). That has yet to be set up in the server.
+For IVC appointments, we use MariaDB to store booked appointments. This feature has not been deployed yet and is not in our EC2 VM yet.
+
+For real time functionality, we are currently using Firebase's realtime DB. For the future, we should consider using web sockets with MariaDB so that our DB is centralized. We can also consider [RethinkDB](https://rethinkdb.com) as an alternative.
 
 ### Technologies
 
@@ -127,7 +129,7 @@ Build a simple PWA with client and server in place, including proper security me
 
 #### Sprint 2 <!-- omit in toc -->
 
-TBD.
+IVC Appointment. Set up simple about and contact us pages.
 
 ## Notes & Resources
 
