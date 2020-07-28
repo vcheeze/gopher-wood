@@ -1,0 +1,63 @@
+:root {
+  --text-indent-none: 0;
+  --text-indent-extra-small: 0.25em;
+  --text-indent-small: 0.5em;
+  --text-indent-medium: 1em;
+  --text-indent-large: 2em;
+  --text-indent-extra-large: 4em;
+  --text-indent-extra-extra-large: 8em;
+  --text-indent-extra-extra-extra-large: 16em;
+}
+
+/*=== text-indent styles ===*/
+.ti0 {
+  text-indent: var(--text-indent-none);
+}
+
+.ti1 {
+  text-indent: var(--text-indent-extra-small);
+}
+
+.ti2 {
+  text-indent: var(--text-indent-small);
+}
+
+.ti3 {
+  text-indent: var(--text-indent-medium);
+}
+
+.ti4 {
+  text-indent: var(--text-indent-large);
+}
+
+.ti5 {
+  text-indent: var(--text-indent-extra-large);
+}
+
+.ti6 {
+  text-indent: var(--text-indent-extra-extra-large);
+}
+
+.ti7 {
+  text-indent: var(--text-indent-extra-extra-extra-large);
+}
+
+.lh1 {
+  line-height: 1rem;
+}
+
+.lh2 {
+  line-height: 2rem;
+}
+
+.lh3 {
+  line-height: 4rem;
+}
+
+.lh4 {
+  line-height: 8rem;
+}
+
+.lh5 {
+  line-height: 16rem;
+}

@@ -1,0 +1,14 @@
+@import 'tachyons-sass/tachyons.scss';
+@import './tachyons-extend.scss';
+@import './theme.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}

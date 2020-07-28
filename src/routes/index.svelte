@@ -1,46 +1,66 @@
-<style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
+<script>
+  import { onMount } from 'svelte';
+  import { _ } from 'svelte-i18n';
+  import { auth, db } from '../firebase';
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
+  let qNumHeader = '',
+    qNumBody = '';
 
-	figure {
-		margin: 0 0 1em 0;
-	}
+  const styles = {
+    logo: 'tc',
+    qNumHeader: 'tc f2 f1-ns ma0',
+    qNumBody: 'ma0 tc f1 f-6-ns tracked-mega ti1 green',
+    hours: 'tc',
+  };
 
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
-</style>
+  onMount(() => {
+    auth.signInAnonymously().catch(function(err) {
+      var errCode = err.code;
+      var errorMessage = err.message;
+    });
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+      } else {
+        // user is signed out
+      }
+    });
+    const queueNumRef = db.ref('queue-number');
+    queueNumRef.on('value', snapshot => {
+      const { currentNum } = snapshot.val();
+      if (currentNum > 999) {
+        qNumHeader = 'qNumHeader.closed';
+        qNumBody = '----';
+      } else {
+        qNumHeader = 'qNumHeader.currentNumber';
+        qNumBody = currentNum.toString().padStart(4, '0');
+      }
+    });
+  });
+</script>
 
 <svelte:head>
-	<title>Sapper project template</title>
+  <!-- <title>{$_('clinic.fullName')}</title> -->
+  <!-- <meta name="description" content={$_('clinic.description')} /> -->
+  <title>歌斐木診所</title>
+  <meta
+    name="description"
+    content="歌斐木診所。回歸起初創造之道，追求全人健康。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={$_('clinic.fullName')} />
+  <meta property="og:description" content={$_('clinic.description')} />
+  <meta property="og:url" content="http://www.gopherwoodclinic.org" />
+  <link rel="canonical" href="http://www.gopherwoodclinic.org" />
 </svelte:head>
 
-<h1>Great success!</h1>
-
-<figure>
-	<img alt='Borat' src='great-success.png'>
-	<figcaption>HIGH FIVE!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+<div class={styles.logo}>
+  <img src="/images/logo.svg" alt="logo image" />
+</div>
+<div>
+  <p class={styles.qNumHeader}>{$_(qNumHeader)}</p>
+  <p class={styles.qNumBody}>{qNumBody || '0000'}</p>
+  <p class={styles.hours}>{$_('clinic.openingHours.title')}</p>
+  <p class={styles.hours}>{$_('clinic.openingHours.weekdays')}</p>
+  <p class={styles.hours}>{$_('clinic.openingHours.weekend')}</p>
+</div>
