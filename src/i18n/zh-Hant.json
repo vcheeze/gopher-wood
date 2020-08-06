@@ -1,7 +1,8 @@
 {
   "nav": {
     "home": "首頁",
-    "about": "關於"
+    "about": "關於",
+    "ivc": "預約注射"
   },
   "page": {
     "about": {
@@ -14,6 +15,18 @@
     "ivc": {
       "title": "預約注射"
     }
+  },
+  "field": {
+    "date": "日期",
+    "date.placeholder": "選擇日期",
+    "period": "時段",
+    "time": "時間",
+    "time.placeholder": "選擇時間",
+    "period.morning": "早上",
+    "period.afternoon": "下午"
+  },
+  "button": {
+    "submit": "確認"
   },
   "qNumHeader.closed": "休診中",
   "qNumHeader.currentNumber": "即時診號",

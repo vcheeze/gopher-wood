@@ -24,7 +24,6 @@
 
 /*--- global styles ---*/
 body {
-	margin: 0;
 	font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
 	font-size: 14px;
 	line-height: 1.5;
@@ -43,6 +42,11 @@ h1 {
 
 a {
 	color: inherit;
+}
+
+::placeholder: {
+  font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
+  Fira Sans, Helvetica Neue, sans-ser
 }
 
 code {

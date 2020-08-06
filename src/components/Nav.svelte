@@ -6,6 +6,37 @@
   /*--- setup for GSAP animation ---*/
   let menuToggle;
   let displayMenu = false;
+
+  const styles = {
+    nav:
+      'flex justify-between absolute w-100 ma0 ph3 fw3 z-999 bb b--washed-green', // TODO consider changing z-index later
+    logoImg: 'dib v-mid',
+    ulContainer: 'flex-auto',
+    ul: 'ma0 pv0 ph3 dn db-ns',
+    li: 'db pointer fl',
+    a: 'no-underline pv3 ph2 db',
+    locale: 'dib pv3 ph2 pointer dim',
+    burger: 'dn-ns pr2',
+    menu: 'absolute dt vh-100 w-100 bg-dark-gray', // add z-index?
+    menuList: 'ma0 pa0 dtc v-mid tc',
+    menuItem: 'db pointer f2 near-white',
+  };
+
+  $: imageUri =
+    $locale === 'en'
+      ? '/images/clinic_name_en.svg'
+      : '/images/clinic_name_zh.svg';
+
+  function handleBurgerClick() {
+    menuToggle.reversed() ? menuToggle.restart() : menuToggle.reverse();
+    displayMenu = !displayMenu;
+  }
+  /*--- END setup for GSAP animation ---*/
+
+  function switchLocale() {
+    locale.set($locale === 'en' ? 'zh-Hant' : 'en');
+  }
+
   onMount(() => {
     menuToggle = gsap.timeline({ paused: true, reversed: true });
     menuToggle
@@ -28,36 +59,6 @@
         'rotate'
       );
   });
-
-  $: imageUri =
-    $locale === 'en'
-      ? '/images/clinic_name_en.svg'
-      : '/images/clinic_name_zh.svg';
-
-  function handleBurgerClick() {
-    menuToggle.reversed() ? menuToggle.restart() : menuToggle.reverse();
-    displayMenu = !displayMenu;
-  }
-  /*--- END setup for GSAP animation ---*/
-
-  function switchLocale() {
-    locale.set($locale === 'en' ? 'zh-Hant' : 'en');
-  }
-
-  const styles = {
-    nav:
-      'flex justify-between absolute w-100 ma0 ph3 fw3 z-999 bb b--washed-green', // TODO consider changing z-index later
-    logoImg: 'dib v-mid',
-    ulContainer: 'flex-auto',
-    ul: 'ma0 pv0 ph3 dn db-ns',
-    li: 'db pointer fl',
-    a: 'no-underline pv3 ph2 db',
-    locale: 'dib pv3 ph2 pointer dim',
-    burger: 'dn-ns pr2',
-    menu: 'absolute dt vh-100 w-100 bg-dark-gray', // add z-index?
-    menuList: 'ma0 pa0 dtc v-mid tc',
-    menuItem: 'db pointer f2 near-white',
-  };
 </script>
 
 <style>
@@ -128,6 +129,11 @@
           {$_('nav.about')}
         </a>
       </li> -->
+      <li class={styles.li}>
+        <a class={styles.a} class:selected={segment === 'ivc'} href="ivc">
+          {$_('nav.ivc')}
+        </a>
+      </li>
     </ul>
   </div>
   <div>
