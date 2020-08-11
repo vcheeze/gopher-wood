@@ -61,3 +61,27 @@
 .lh5 {
   line-height: 16rem;
 }
+
+// breakpoint large
+@media screen and (min-width: 60em) {
+  .mh8-l {
+    margin-left: 32rem;
+    margin-right: 32rem;
+  }
+}
+
+// breakpoint medium
+@media screen and (min-width: 30em) and (max-width: 45em) {
+  .mh8-m {
+    margin-left: 32rem;
+    margin-right: 32rem;
+  }
+}
+
+// breakpoint not-small
+@media screen and (min-width: 30em) {
+  .mh8-ns {
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+}

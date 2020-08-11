@@ -7,17 +7,20 @@
   const today = moment();
   let dateOptions = [];
   let timeOptions = [];
-  let selectedDate = undefined;
-  const isEnglish = locale === 'en';
-  const datePlaceholder = isEnglish ? 'Select a date' : '選擇日期';
-  const timePlaceholder = isEnglish ? 'Select a time' : '選擇時間';
+  let fullName = '',
+    selectedDate = undefined,
+    selectedTime = undefined;
+  $: isEnglish = $locale === 'en';
+  $: datePlaceholder = isEnglish ? 'Select a date' : '選擇日期';
+  $: timePlaceholder = isEnglish ? 'Select a time' : '選擇時間';
+  $: namePlaceholder = isEnglish ? 'Enter your full name' : '姓名';
 
   const styles = {
     title: 'tc',
-    form: 'mv2 mh7-ns tc',
-    formGroup: 'pv2 ph7-ns themed',
+    form: 'mv2 mh8-ns',
+    formGroup: 'pa2 themed',
     label: 'f5',
-    submitButton: 'bg-white ma2 pv2 ph4 pointer',
+    submitButton: 'bg-white ma2 pv2 ph4 fr pointer',
   };
 
   // initialize date options
@@ -49,31 +52,32 @@
     return time.format('HH:mm A');
   }
 
-  async function updateTimeslots(date) {
-    selectedDate = moment(date.detail.value);
-    console.log('==> selectedDate: ', selectedDate);
+  async function updateTimeslots() {
+    const date = moment(selectedDate.value);
     let response = await fetch(
-      `/api/getBookedSlots?date=${formatDate(selectedDate)}`
+      `/api/getBookedSlots?date=${date.format('YYYY-MM-DD')}`
     );
     if (response.ok) {
       let json = await response.json();
-      console.log('==> json: ', json);
+      // console.log('==> json: ', json);
+      // TODO show success message
     } else {
-      console.log('==> failed to get booked slots');
+      // console.log('==> failed to get booked slots');
+      // TODO show error message
     }
 
     // if selected date is today
-    if (selectedDate.isSame(today, 'day')) {
+    if (date.isSame(today, 'day')) {
       if (moment().hour() < 9) {
-        addTimeslots(selectedDate, false);
+        addTimeslots(date, false);
         timeOptions = timeOptions;
       }
     } else {
-      addTimeslots(selectedDate, true);
-      addTimeslots(selectedDate, false);
+      addTimeslots(date, true);
+      addTimeslots(date, false);
       timeOptions = timeOptions;
     }
-    console.log('==> timeOptions: ', timeOptions);
+    // console.log('==> timeOptions: ', timeOptions);
   }
 
   function addTimeslots(date, isMorning) {
@@ -100,9 +104,40 @@
     return item.group;
   }
 
-  function onSubmit(e) {
+  function clearFields() {
+    fullName = '';
+    selectedDate = undefined;
+    selectedTime = undefined;
+  }
+
+  async function onSubmit(e) {
     e.preventDefault();
-    console.log('==> submit!');
+    const time = moment(selectedTime.value);
+    const date = moment(selectedDate.value);
+    const data = {
+      fullName,
+      date: date.format('YYYY-MM-DD'),
+      time: time.format('HH:mm:ss'),
+      period: time.hour() < 11 ? 'morning' : 'afternoon',
+    };
+    console.log('==> data: ', data);
+    debugger;
+    let response = await fetch(`/api/submitIvcAppointment`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      let json = await response.json();
+      console.log('==> json: ', json);
+      clearFields();
+      // TODO show success message
+    } else {
+      console.log('==> failed to book IVC appointment');
+      // TODO show error message
+    }
   }
 
   // onMount(() => {
@@ -119,10 +154,16 @@
   .themed {
     --borderRadius: 0;
     --itemHoverBG: rgb(232, 253, 245);
-    --placeholderColor: #333;
+    --placeholderColor: #000;
   }
 
-  button:hover {
+  .themed .selectContainer > input::placeholder,
+  .themed .selectContainer > input::-webkit-input-placeholder,
+  .themed .selectContainer > input:-ms-input-placeholder,
+  .themed .selectContainer > input:-moz-placeholder,
+  .themed .selectContainer > input::-moz-placeholder {
+    font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
+      Fira Sans, Helvetica Neue, sans-serif;
   }
 </style>
 
@@ -133,20 +174,25 @@
 <h1 class={styles.title}>{$_('page.ivc.title')}</h1>
 <form class={styles.form}>
   <div class={styles.formGroup}>
-    <label class={styles.label} for="date">{$_('field.date')}</label>
+    <input bind:value={fullName} placeholder={namePlaceholder} />
+  </div>
+  <div class={styles.formGroup}>
+    <!-- <label class={styles.label} for="date">{$_('field.date')}</label> -->
     <Select
       id="date"
       placeholder={datePlaceholder}
       items={dateOptions}
+      bind:selectedValue={selectedDate}
       on:select={updateTimeslots} />
   </div>
   <div class={styles.formGroup}>
-    <label class={styles.label} for="time">{$_('field.time')}</label>
+    <!-- <label class={styles.label} for="time">{$_('field.time')}</label> -->
     <Select
       id="time"
       placeholder={timePlaceholder}
       items={timeOptions}
-      {groupBy} />
+      {groupBy}
+      bind:selectedValue={selectedTime} />
   </div>
   <button type="submit" class={styles.submitButton} on:click={onSubmit}>
     {$_('button.submit')}

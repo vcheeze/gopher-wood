@@ -9,6 +9,8 @@ Official app for Gopher Wood Clinic.
 - [For Developers](#for-developers)
   - [Architecture](#architecture)
   - [Technologies](#technologies)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Release Management and Naming Conventions](#release-management-and-naming-conventions)
   - [Features Sets](#features-sets)
 - [Notes & Resources](#notes--resources)
@@ -54,6 +56,8 @@ For real time functionality, we are currently using Firebase's realtime DB. For 
 
 ### Technologies
 
+#### Frontend
+
 We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS; read [this article by Adam Wathan](https://adamwathan.me/css-utility-classes-and-separation-of-concerns) for an idea of why we use functional CSS. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Polka](https://github.com/lukeed/polka) instead of Express for the server.
 
 With regards to Tachyons, how well it integrates with Sapper still remains to be seen. This is an ambitious attempt for us to use functional CSS, but we will remain open to other options as we develop our project - if an alternative comes up with a compelling argument to switch over, then we might. As of now, simply follow a few helpful guidelines:
@@ -79,6 +83,23 @@ With regards to Tachyons, how well it integrates with Sapper still remains to be
   ```
 
 And that's it! Go and get started on Svelte and Tachyons :)
+
+#### Backend
+
+As mentioned in the architecture section, we use Firebase as our realtime db. For IVC appointments, we use MariaDB on the AWS EC2 server to store timesots.
+
+Remote access to MariaDB has been configured for the following user:
+```
+user: gwuser;
+password: gdubsuperadmin;
+```
+
+However, we still have to configure MariaDB on the server to accept this user certain incoming IP addresses. This can be done by `ssh`ing into the server, running `sudo mysql -u root` to start MariaDB, then enter
+```sql
+GRANT ALL PRIVILEGES ON gopher_wood.* TO 'gwuser'@'[the_IP_address_to_add]' IDENTIFIED BY 'gdubsuperadmin';
+```
+
+Replace `[the_IP_address_to_add]` with the your IP address. This will grant the user `gwuser` accessing the database from the specified IP address all privileges on the database `gopher_wood` - including all the tables in it (specified by `.*` following `gopher_wood`).
 
 ### Release Management and Naming Conventions
 

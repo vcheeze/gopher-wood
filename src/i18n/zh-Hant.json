@@ -17,6 +17,8 @@
     }
   },
   "field": {
+    "name": "姓名",
+    "name.placeholder": "姓名",
     "date": "日期",
     "date.placeholder": "選擇日期",
     "period": "時段",

@@ -55,7 +55,7 @@
 </svelte:head>
 
 <div class={styles.logo}>
-  <img src="/images/logo.svg" alt="logo image" />
+  <img src="/images/logo.svg" alt="logo" />
 </div>
 <div>
   <p class={styles.qNumHeader}>{$_(qNumHeader)}</p>

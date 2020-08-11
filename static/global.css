@@ -44,9 +44,18 @@ a {
 	color: inherit;
 }
 
-::placeholder: {
+input {
+	height: 42px;
+	width: 100%;
+	padding: 1rem;
+	border: 1px solid #d8dbdf;
+	border-radius: 0;
+}
+
+::placeholder {
   font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
-  Fira Sans, Helvetica Neue, sans-ser
+	Fira Sans, Helvetica Neue, sans-serif;
+	font-size: 1rem;
 }
 
 code {
