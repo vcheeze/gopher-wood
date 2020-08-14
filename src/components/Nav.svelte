@@ -1,7 +1,10 @@
 <script>
   import { onMount } from 'svelte';
   import { locale, _ } from 'svelte-i18n';
+
+  /*--- props ---*/
   export let segment;
+  /*--- END props ---*/
 
   /*--- setup for GSAP animation ---*/
   let menuToggle;
@@ -87,7 +90,7 @@
     content: '';
     width: calc(100% - 1rem);
     height: 2px;
-    background-color: rgb(25, 169, 116);
+    background-color: #19a974;
     display: block;
     bottom: -1px;
   }

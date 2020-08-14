@@ -53,13 +53,15 @@
   }
 
   async function updateTimeslots() {
+    let bookedSlots = [];
     const date = moment(selectedDate.value);
     let response = await fetch(
       `/api/getBookedSlots?date=${date.format('YYYY-MM-DD')}`
     );
     if (response.ok) {
-      let json = await response.json();
-      // console.log('==> json: ', json);
+      const { data } = await response.json();
+      console.log('==> data: ', data);
+      bookedSlots = data;
       // TODO show success message
     } else {
       // console.log('==> failed to get booked slots');
@@ -69,18 +71,22 @@
     // if selected date is today
     if (date.isSame(today, 'day')) {
       if (moment().hour() < 9) {
-        addTimeslots(date, false);
-        timeOptions = timeOptions;
+        addTimeslots(date, false, bookedSlots);
+        timeOptions = timeOptions; // assign statement to make Svelte reload
       }
     } else {
-      addTimeslots(date, true);
-      addTimeslots(date, false);
-      timeOptions = timeOptions;
+      addTimeslots(date, true, bookedSlots);
+      addTimeslots(date, false, bookedSlots);
+      timeOptions = timeOptions; // assign statement to make Svelte reload
     }
     // console.log('==> timeOptions: ', timeOptions);
   }
 
-  function addTimeslots(date, isMorning) {
+  function addTimeslots(date, isMorning, bookedSlots) {
+    const slotsForPeriod = bookedSlots.filter(slot =>
+      isMorning ? slot.period === 'morning' : slot.period === 'afternoon'
+    );
+    console.log('==> slotsForPeriod: ', slotsForPeriod);
     const morning = isEnglish ? 'Morning' : '早上';
     const afternoon = isEnglish ? 'Afternoon' : '下午';
 
@@ -90,12 +96,21 @@
     let toTime = moment(date).hour(isMorning ? 11 : 19);
     toTime.minute(0);
     toTime.second(0);
+
     while (fromTime <= toTime) {
-      timeOptions.push({
-        value: fromTime.toDate(),
-        label: formatTime(fromTime),
-        group: isMorning ? morning : afternoon,
-      });
+      if (
+        slotsForPeriod.length < 1 ||
+        fromTime.format('HH:mm:ss') !== slotsForPeriod[0].time
+      ) {
+        timeOptions.push({
+          value: fromTime.toDate(),
+          label: formatTime(fromTime),
+          group: isMorning ? morning : afternoon,
+        });
+      } else {
+        slotsForPeriod.shift(); // remove first slot from booked slots
+      }
+
       fromTime.add(5, 'minutes');
     }
   }
@@ -168,7 +183,15 @@
 </style>
 
 <svelte:head>
-  <title>IVC</title>
+  <title>歌斐木診所 - {$_('page.ivc.title')}</title>
+  <meta
+    name="description"
+    content={`歌斐木診所 - ${$_('page.ivc.description')}`} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={$_('clinic.fullName')} />
+  <meta property="og:description" content={$_('clinic.description')} />
+  <meta property="og:url" content="http://www.gopherwoodclinic.org" />
+  <link rel="canonical" href="http://www.gopherwoodclinic.org" />
 </svelte:head>
 
 <h1 class={styles.title}>{$_('page.ivc.title')}</h1>
