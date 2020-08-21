@@ -16,9 +16,17 @@ body {
 button {
   font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
     Fira Sans, Helvetica Neue, sans-serif;
-  border: 2px solid #19a974;
+  border: 2px solid #333333;
 }
 
-button:hover {
+button.primary {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-color: #19a974;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+button.primary:hover {
   background-color: #19a974;
 }

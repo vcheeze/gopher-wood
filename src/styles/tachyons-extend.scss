@@ -62,19 +62,25 @@
   line-height: 16rem;
 }
 
+/*=== background with opacity styles ===*/
+.bg-dark-gray-75 {
+  background-color: rgba(51, 51, 51, 0.75);
+}
+
 // breakpoint large
 @media screen and (min-width: 60em) {
+  /*=== margin styles ===*/
   .mh8-l {
-    margin-left: 32rem;
-    margin-right: 32rem;
+    margin-left: 30%;
+    margin-right: 30%;
   }
 }
 
 // breakpoint medium
 @media screen and (min-width: 30em) and (max-width: 45em) {
   .mh8-m {
-    margin-left: 32rem;
-    margin-right: 32rem;
+    margin-left: 30%;
+    margin-right: 30%;
   }
 }
 
