@@ -1,7 +1,8 @@
 {
   "nav": {
     "home": "首頁",
-    "about": "關於"
+    "about": "關於",
+    "ivc": "預約注射"
   },
   "page": {
     "about": {
@@ -12,8 +13,23 @@
       "title": "首頁"
     },
     "ivc": {
-      "title": "預約注射"
+      "title": "預約注射",
+      "description": "預約注射IVC"
     }
+  },
+  "field": {
+    "name": "姓名",
+    "name.placeholder": "姓名",
+    "date": "日期",
+    "date.placeholder": "選擇日期",
+    "period": "時段",
+    "time": "時間",
+    "time.placeholder": "選擇時間",
+    "period.morning": "早上",
+    "period.afternoon": "下午"
+  },
+  "button": {
+    "submit": "確認"
   },
   "qNumHeader.closed": "休診中",
   "qNumHeader.currentNumber": "即時診號",
@@ -26,5 +42,9 @@
       "weekdays": "週一至週五 | 9:00 - 13:00， 17:00 - 21:00 (16:00 - 17:00 約診）",
       "weekend": "週六 | 9:00 - 13:00"
     }
+  },
+  "sucess": {
+    "title": "預約成功！",
+    "text": "約診時段"
   }
 }
