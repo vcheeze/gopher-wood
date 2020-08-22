@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { locale, _ } from 'svelte-i18n';
   import Select from 'svelte-select';
-  import moment from 'moment';
+  import dayjs from 'dayjs';
   import Spinner from '../components/Spinner.svelte';
   import Dialog from '../components/Dialog.svelte';
 
@@ -11,7 +11,7 @@
     dialogStatus = 'regular',
     dialogTitle = '',
     dialogBody = '';
-  const today = moment();
+  const today = dayjs();
   let dateOptions = [];
   let timeOptions = [];
   let fullName = '',
@@ -45,8 +45,8 @@
    * Only Tuesdays, Fridays, and Saturdays are viable.
    */
   function initDateOptions() {
-    let fromDate = moment().hour() < 9 ? today : today.add(1, 'days');
-    let toDate = moment(today).add(14, 'days');
+    let fromDate = dayjs().hour() < 9 ? today : today.add(1, 'days');
+    let toDate = dayjs(today).add(14, 'days');
     while (fromDate <= toDate) {
       if (fromDate.day() === 2 || fromDate.day() === 5 || fromDate.day() === 6)
         dateOptions.push({
@@ -68,7 +68,7 @@
 
   async function updateTimeslots() {
     let bookedSlots = [];
-    const date = moment(selectedDate.value);
+    const date = dayjs(selectedDate.value);
     let response = await fetch(
       `/api/getBookedSlots?date=${date.format('YYYY-MM-DD')}`
     );
@@ -83,7 +83,7 @@
 
     // if selected date is today
     if (date.isSame(today, 'day')) {
-      if (moment().hour() < 9) {
+      if (dayjs().hour() < 9) {
         addTimeslots(date, false, bookedSlots);
         timeOptions = timeOptions; // assign statement to make Svelte reload
       }
@@ -102,10 +102,10 @@
     const morning = isEnglish ? 'Morning' : '早上';
     const afternoon = isEnglish ? 'Afternoon' : '下午';
 
-    let fromTime = moment(date).hour(isMorning ? 9 : 16);
+    let fromTime = dayjs(date).hour(isMorning ? 9 : 16);
     fromTime.minute(isMorning ? 0 : 30);
     fromTime.second(0);
-    let toTime = moment(date).hour(isMorning ? 11 : 19);
+    let toTime = dayjs(date).hour(isMorning ? 11 : 19);
     toTime.minute(0);
     toTime.second(0);
 
@@ -141,8 +141,8 @@
     e.preventDefault();
     showSpinner = true;
 
-    const time = moment(selectedTime.value);
-    const date = moment(selectedDate.value);
+    const time = dayjs(selectedTime.value);
+    const date = dayjs(selectedDate.value);
     const data = {
       fullName,
       date: date.format('YYYY-MM-DD'),
