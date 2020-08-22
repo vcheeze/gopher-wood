@@ -150,7 +150,7 @@ Build a simple PWA with client and server in place, including proper security me
 
 #### Sprint 2 <!-- omit in toc -->
 
-IVC Appointment. Set up simple about and contact us pages.
+IVC Appointment. Set up simple about and contact us pages. Also set up a page to view appointments.
 
 ## Notes & Resources
 
