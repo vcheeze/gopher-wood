@@ -9,6 +9,8 @@ Official app for Gopher Wood Clinic.
 - [For Developers](#for-developers)
   - [Architecture](#architecture)
   - [Technologies](#technologies)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Release Management and Naming Conventions](#release-management-and-naming-conventions)
   - [Features Sets](#features-sets)
 - [Notes & Resources](#notes--resources)
@@ -48,9 +50,13 @@ Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood).
 
 In the EC2 instance, [pm2](https://pm2.keymetrics.io/) is utilized to serve the app. In order to deploy the app again, simply `git pull` in the repo (found in `~/gopher-wood/`), `npm i` if `package.json` has been changed, then `npm run build`. pm2 should pick up the changes automatically from `__sapper__/build/` and serve the updated files. If your changes are not reflected, simply run `pm2 restart [PID of our process]` in the terminal. You can find the PID by entering `pm2 list`.
 
-For real time functionality, we are thinking of using [RethinkDB](https://rethinkdb.com). That has yet to be set up in the server.
+For IVC appointments, we use MariaDB to store booked appointments. This feature has not been deployed yet and is not in our EC2 VM yet.
+
+For real time functionality, we are currently using Firebase's realtime DB. For the future, we should consider using web sockets with MariaDB so that our DB is centralized. We can also consider [RethinkDB](https://rethinkdb.com) as an alternative.
 
 ### Technologies
+
+#### Frontend
 
 We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS; read [this article by Adam Wathan](https://adamwathan.me/css-utility-classes-and-separation-of-concerns) for an idea of why we use functional CSS. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Polka](https://github.com/lukeed/polka) instead of Express for the server.
 
@@ -77,6 +83,23 @@ With regards to Tachyons, how well it integrates with Sapper still remains to be
   ```
 
 And that's it! Go and get started on Svelte and Tachyons :)
+
+#### Backend
+
+As mentioned in the architecture section, we use Firebase as our realtime db. For IVC appointments, we use MariaDB on the AWS EC2 server to store timesots.
+
+Remote access to MariaDB has been configured for the following user:
+```
+user: gwuser;
+password: gdubsuperadmin;
+```
+
+However, we still have to configure MariaDB on the server to accept this user certain incoming IP addresses. This can be done by `ssh`ing into the server, running `sudo mysql -u root` to start MariaDB, then enter
+```sql
+GRANT ALL PRIVILEGES ON gopher_wood.* TO 'gwuser'@'[the_IP_address_to_add]' IDENTIFIED BY 'gdubsuperadmin';
+```
+
+Replace `[the_IP_address_to_add]` with the your IP address. After this, run `FLUSH PRIVILEGES;` in order to reload privileges on the database. This will grant the user `gwuser` accessing the database from the specified IP address all privileges on the database `gopher_wood` - including all the tables in it (specified by `.*` following `gopher_wood`).
 
 ### Release Management and Naming Conventions
 
@@ -127,7 +150,7 @@ Build a simple PWA with client and server in place, including proper security me
 
 #### Sprint 2 <!-- omit in toc -->
 
-TBD.
+IVC Appointment. Set up simple about and contact us pages.
 
 ## Notes & Resources
 

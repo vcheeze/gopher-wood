@@ -12,3 +12,30 @@ body {
   padding: 0;
   height: 100%;
 }
+
+input:hover {
+  border-color: #b2b8bf;
+}
+
+input:focus {
+  border: 1px solid #333333;
+  outline: none;
+}
+
+button {
+  font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
+    Fira Sans, Helvetica Neue, sans-serif;
+  border: 2px solid #333333;
+}
+
+button.primary {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-color: #19a974;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+button.primary:hover {
+  background-color: #19a974;
+}
