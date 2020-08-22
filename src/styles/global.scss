@@ -13,6 +13,15 @@ body {
   height: 100%;
 }
 
+input:hover {
+  border-color: #b2b8bf;
+}
+
+input:focus {
+  border: 1px solid #333333;
+  outline: none;
+}
+
 button {
   font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
     Fira Sans, Helvetica Neue, sans-serif;

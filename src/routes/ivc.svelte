@@ -45,7 +45,7 @@
    * Only Tuesdays, Fridays, and Saturdays are viable.
    */
   function initDateOptions() {
-    let fromDate = moment().hour() < 9 ? today : today.add(1, 'days');
+    let fromDate = moment().hour() < 9 ? today : moment(today).add(1, 'days');
     let toDate = moment(today).add(14, 'days');
     while (fromDate <= toDate) {
       if (fromDate.day() === 2 || fromDate.day() === 5 || fromDate.day() === 6)
@@ -67,8 +67,11 @@
   }
 
   async function updateTimeslots() {
+    showSpinner = true;
+
     let bookedSlots = [];
     const date = moment(selectedDate.value);
+    const now = moment();
     let response = await fetch(
       `/api/getBookedSlots?date=${date.format('YYYY-MM-DD')}`
     );
@@ -81,18 +84,27 @@
       // TODO show error message
     }
 
-    // if selected date is today
-    if (date.isSame(today, 'day')) {
-      if (moment().hour() < 9) {
-        addTimeslots(date, false, bookedSlots);
-        timeOptions = timeOptions; // assign statement to make Svelte reload
-      }
+    const tomorrow = moment(today).add(1, 'days');
+    let newOptions = [];
+
+    if (date.isSame(today, 'day') && now.hour() < 9) {
+      // if selected date is today and it's before 9am
+      newOptions = addTimeslots(date, false, bookedSlots);
+    } else if (date.isSame(tomorrow, 'day')) {
+      // if selected date is tomorrow
+      newOptions = [
+        ...(now.hour() < 17 ? addTimeslots(date, true, bookedSlots) : []),
+        ...addTimeslots(date, false, bookedSlots),
+      ];
     } else {
-      addTimeslots(date, true, bookedSlots);
-      addTimeslots(date, false, bookedSlots);
-      timeOptions = timeOptions; // assign statement to make Svelte reload
+      newOptions = [
+        ...addTimeslots(date, true, bookedSlots),
+        ...addTimeslots(date, false, bookedSlots),
+      ];
     }
-    // console.log('==> timeOptions: ', timeOptions);
+    selectedTime = undefined; // clear time selection
+    timeOptions = newOptions; // assign statement to make Svelte reload
+    showSpinner = false;
   }
 
   function addTimeslots(date, isMorning, bookedSlots) {
@@ -102,6 +114,7 @@
     const morning = isEnglish ? 'Morning' : '早上';
     const afternoon = isEnglish ? 'Afternoon' : '下午';
 
+    let options = [];
     let fromTime = moment(date).hour(isMorning ? 9 : 16);
     fromTime.minute(isMorning ? 0 : 30);
     fromTime.second(0);
@@ -114,7 +127,7 @@
         slotsForPeriod.length < 1 ||
         fromTime.format('HH:mm:ss') !== slotsForPeriod[0].time
       ) {
-        timeOptions.push({
+        options.push({
           value: fromTime.toDate(),
           label: formatTime(fromTime),
           group: isMorning ? morning : afternoon,
@@ -125,6 +138,8 @@
 
       fromTime.add(5, 'minutes');
     }
+
+    return options;
   }
 
   function groupBy(item) {
@@ -178,22 +193,13 @@
     clearFields();
     showDialog = false;
   }
-
-  // onMount(() => {
-  //   let newDate;
-  //   for (let i = 0; i < 14; i++) {
-  //     newDate = addDays(startingDate, i);
-  //     dateOptions.push({ value: newDate, label: formatDate(newDate) });
-  //   }
-  //   console.log('==> date options set');
-  // });
 </script>
 
 <style>
   .themed {
     --borderRadius: 0;
+    --borderFocusColor: #333333;
     --itemHoverBG: #e8fdf5;
-    --placeholderColor: #000;
   }
 
   .themed .selectContainer > input::placeholder,
@@ -222,12 +228,11 @@
 
 <Dialog visible={showDialog} status={dialogStatus}>
   <p slot="header">{dialogTitle}</p>
-  <p slot="body">{dialogBody}</p>
+  <!-- <p slot="body">{dialogBody}</p> -->
   <div class={styles.action} slot="action">
     <button class={styles.button} on:click={onAcknowledge}>Okay!</button>
   </div>
 </Dialog>
-<!-- <Banner visible /> -->
 
 <h1 class={styles.title}>{$_('page.ivc.title')}</h1>
 <form class={styles.form}>
