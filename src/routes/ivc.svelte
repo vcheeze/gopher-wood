@@ -7,6 +7,7 @@
   import Dialog from '../components/Dialog.svelte';
 
   let showSpinner = false;
+  let disableButton = true;
   let showDialog = false,
     dialogStatus = 'regular',
     dialogTitle = '',
@@ -152,6 +153,20 @@
     selectedTime = undefined;
   }
 
+  function clearTimeOptions() {
+    selectedTime = undefined;
+    timeOptions = [];
+    updateButtonState();
+  }
+
+  function updateButtonState() {
+    disableButton =
+      fullName === '' ||
+      fullName === undefined ||
+      selectedDate === undefined ||
+      selectedTime === undefined;
+  }
+
   async function onSubmit(e) {
     e.preventDefault();
     showSpinner = true;
@@ -237,7 +252,10 @@
 <h1 class={styles.title}>{$_('page.ivc.title')}</h1>
 <form class={styles.form}>
   <div class={styles.formGroup}>
-    <input bind:value={fullName} placeholder={namePlaceholder} />
+    <input
+      bind:value={fullName}
+      placeholder={namePlaceholder}
+      on:change={updateButtonState} />
   </div>
   <div class={styles.formGroup}>
     <!-- <label class={styles.label} for="date">{$_('field.date')}</label> -->
@@ -246,7 +264,8 @@
       items={dateOptions}
       isSearchable={false}
       bind:selectedValue={selectedDate}
-      on:select={updateTimeslots} />
+      on:select={updateTimeslots}
+      on:clear={clearTimeOptions} />
   </div>
   <div class={styles.formGroup}>
     <!-- <label class={styles.label} for="time">{$_('field.time')}</label> -->
@@ -255,9 +274,16 @@
       items={timeOptions}
       {groupBy}
       bind:selectedValue={selectedTime}
-      isSearchable={false} />
+      isSearchable={false}
+      on:select={updateButtonState}
+      on:clear={updateButtonState} />
   </div>
-  <button type="submit" class={styles.button} on:click={onSubmit}>
+  <button
+    type="submit"
+    class={styles.button}
+    class:disabled={disableButton}
+    disabled={disableButton}
+    on:click={onSubmit}>
     {$_('button.submit')}
   </button>
 </form>
