@@ -244,6 +244,7 @@
     <Select
       placeholder={datePlaceholder}
       items={dateOptions}
+      isSearchable={false}
       bind:selectedValue={selectedDate}
       on:select={updateTimeslots} />
   </div>
@@ -253,7 +254,8 @@
       placeholder={timePlaceholder}
       items={timeOptions}
       {groupBy}
-      bind:selectedValue={selectedTime} />
+      bind:selectedValue={selectedTime}
+      isSearchable={false} />
   </div>
   <button type="submit" class={styles.button} on:click={onSubmit}>
     {$_('button.submit')}
