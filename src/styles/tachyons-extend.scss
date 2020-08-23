@@ -62,6 +62,11 @@
   line-height: 16rem;
 }
 
+/*=== pointer-events styles ===*/
+.pe-none {
+  pointer-events: none;
+}
+
 /*=== z-index styles ===*/
 .z-998 {
   z-index: 998;

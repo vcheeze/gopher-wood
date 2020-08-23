@@ -11,7 +11,7 @@
 
   const styles = {
     spinner:
-      'bg-white-75 vh-100 w-100 absolute top-0 left-0 flex justify-center items-center z-9999',
+      'bg-white-75 vh-100 w-100 absolute top-0 left-0 flex justify-center items-center pe-none z-9999',
   };
 </script>
 
