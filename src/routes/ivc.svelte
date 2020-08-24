@@ -1,8 +1,7 @@
 <script>
-  import { onMount } from 'svelte';
   import { locale, _ } from 'svelte-i18n';
   import Select from 'svelte-select';
-  import moment from 'moment';
+  import dayjs from 'dayjs';
   import Spinner from '../components/Spinner.svelte';
   import Dialog from '../components/Dialog.svelte';
 
@@ -12,16 +11,16 @@
     dialogStatus = 'regular',
     dialogTitle = '',
     dialogBody = '';
-  const today = moment();
+  const today = dayjs();
   let dateOptions = [];
   let timeOptions = [];
   let fullName = '',
     selectedDate = undefined,
     selectedTime = undefined;
   $: isEnglish = $locale === 'en';
+  $: namePlaceholder = isEnglish ? 'Enter your full name' : '姓名';
   $: datePlaceholder = isEnglish ? 'Select a date' : '選擇日期';
   $: timePlaceholder = isEnglish ? 'Select a time' : '選擇時間';
-  $: namePlaceholder = isEnglish ? 'Enter your full name' : '姓名';
   $: successTitle = isEnglish ? 'Your appointment is booked!' : '預約成功！';
   $: successText = isEnglish ? 'Appointment details' : '預約時段';
   $: errorTitle = isEnglish ? 'Appointment failed :(' : '預約失敗';
@@ -46,15 +45,15 @@
    * Only Tuesdays, Fridays, and Saturdays are viable.
    */
   function initDateOptions() {
-    let fromDate = moment().hour() < 9 ? today : moment(today).add(1, 'days');
-    let toDate = moment(today).add(14, 'days');
+    let fromDate = dayjs().hour() < 9 ? today : today.add(1, 'days');
+    let toDate = today.add(14, 'days');
     while (fromDate <= toDate) {
       if (fromDate.day() === 2 || fromDate.day() === 5 || fromDate.day() === 6)
         dateOptions.push({
           value: fromDate.toDate(),
           label: formatDate(fromDate),
         });
-      fromDate.add(1, 'days'); // increment date
+      fromDate = fromDate.add(1, 'days'); // increment date
     }
   }
 
@@ -71,8 +70,8 @@
     showSpinner = true;
 
     let bookedSlots = [];
-    const date = moment(selectedDate.value);
-    const now = moment();
+    const date = dayjs(selectedDate.value);
+    const now = dayjs();
     let response = await fetch(
       `/api/getBookedSlots?date=${date.format('YYYY-MM-DD')}`
     );
@@ -85,7 +84,7 @@
       // TODO show error message
     }
 
-    const tomorrow = moment(today).add(1, 'days');
+    const tomorrow = today.add(1, 'days');
     let newOptions = [];
 
     if (date.isSame(today, 'day') && now.hour() < 9) {
@@ -116,12 +115,14 @@
     const afternoon = isEnglish ? 'Afternoon' : '下午';
 
     let options = [];
-    let fromTime = moment(date).hour(isMorning ? 9 : 16);
-    fromTime.minute(isMorning ? 0 : 30);
-    fromTime.second(0);
-    let toTime = moment(date).hour(isMorning ? 11 : 19);
-    toTime.minute(0);
-    toTime.second(0);
+    let fromTime = dayjs(date)
+      .hour(isMorning ? 9 : 16)
+      .minute(isMorning ? 0 : 30)
+      .second(0);
+    let toTime = dayjs(date)
+      .hour(isMorning ? 11 : 19)
+      .minute(0)
+      .second(0);
 
     while (fromTime <= toTime) {
       if (
@@ -137,7 +138,7 @@
         slotsForPeriod.shift(); // remove first slot from booked slots
       }
 
-      fromTime.add(5, 'minutes');
+      fromTime = fromTime.add(5, 'minutes');
     }
 
     return options;
@@ -171,8 +172,8 @@
     e.preventDefault();
     showSpinner = true;
 
-    const time = moment(selectedTime.value);
-    const date = moment(selectedDate.value);
+    const time = dayjs(selectedTime.value);
+    const date = dayjs(selectedDate.value);
     const data = {
       fullName,
       date: date.format('YYYY-MM-DD'),
