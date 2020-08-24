@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
   import { locale, _ } from 'svelte-i18n';
   import Select from 'svelte-select';
   import dayjs from 'dayjs';
@@ -7,6 +6,7 @@
   import Dialog from '../components/Dialog.svelte';
 
   let showSpinner = false;
+  let disableButton = true;
   let showDialog = false,
     dialogStatus = 'regular',
     dialogTitle = '',
@@ -18,9 +18,9 @@
     selectedDate = undefined,
     selectedTime = undefined;
   $: isEnglish = $locale === 'en';
+  $: namePlaceholder = isEnglish ? 'Enter your full name' : '姓名';
   $: datePlaceholder = isEnglish ? 'Select a date' : '選擇日期';
   $: timePlaceholder = isEnglish ? 'Select a time' : '選擇時間';
-  $: namePlaceholder = isEnglish ? 'Enter your full name' : '姓名';
   $: successTitle = isEnglish ? 'Your appointment is booked!' : '預約成功！';
   $: successText = isEnglish ? 'Appointment details' : '預約時段';
   $: errorTitle = isEnglish ? 'Appointment failed :(' : '預約失敗';
@@ -46,14 +46,14 @@
    */
   function initDateOptions() {
     let fromDate = dayjs().hour() < 9 ? today : today.add(1, 'days');
-    let toDate = dayjs(today).add(14, 'days');
+    let toDate = today.add(14, 'days');
     while (fromDate <= toDate) {
       if (fromDate.day() === 2 || fromDate.day() === 5 || fromDate.day() === 6)
         dateOptions.push({
           value: fromDate.toDate(),
           label: formatDate(fromDate),
         });
-      fromDate.add(1, 'days'); // increment date
+      fromDate = fromDate.add(1, 'days'); // increment date
     }
   }
 
@@ -67,8 +67,11 @@
   }
 
   async function updateTimeslots() {
+    showSpinner = true;
+
     let bookedSlots = [];
     const date = dayjs(selectedDate.value);
+    const now = dayjs();
     let response = await fetch(
       `/api/getBookedSlots?date=${date.format('YYYY-MM-DD')}`
     );
@@ -81,18 +84,27 @@
       // TODO show error message
     }
 
-    // if selected date is today
-    if (date.isSame(today, 'day')) {
-      if (dayjs().hour() < 9) {
-        addTimeslots(date, false, bookedSlots);
-        timeOptions = timeOptions; // assign statement to make Svelte reload
-      }
+    const tomorrow = today.add(1, 'days');
+    let newOptions = [];
+
+    if (date.isSame(today, 'day') && now.hour() < 9) {
+      // if selected date is today and it's before 9am
+      newOptions = addTimeslots(date, false, bookedSlots);
+    } else if (date.isSame(tomorrow, 'day')) {
+      // if selected date is tomorrow
+      newOptions = [
+        ...(now.hour() < 17 ? addTimeslots(date, true, bookedSlots) : []),
+        ...addTimeslots(date, false, bookedSlots),
+      ];
     } else {
-      addTimeslots(date, true, bookedSlots);
-      addTimeslots(date, false, bookedSlots);
-      timeOptions = timeOptions; // assign statement to make Svelte reload
+      newOptions = [
+        ...addTimeslots(date, true, bookedSlots),
+        ...addTimeslots(date, false, bookedSlots),
+      ];
     }
-    // console.log('==> timeOptions: ', timeOptions);
+    selectedTime = undefined; // clear time selection
+    timeOptions = newOptions; // assign statement to make Svelte reload
+    showSpinner = false;
   }
 
   function addTimeslots(date, isMorning, bookedSlots) {
@@ -102,19 +114,22 @@
     const morning = isEnglish ? 'Morning' : '早上';
     const afternoon = isEnglish ? 'Afternoon' : '下午';
 
-    let fromTime = dayjs(date).hour(isMorning ? 9 : 16);
-    fromTime.minute(isMorning ? 0 : 30);
-    fromTime.second(0);
-    let toTime = dayjs(date).hour(isMorning ? 11 : 19);
-    toTime.minute(0);
-    toTime.second(0);
+    let options = [];
+    let fromTime = dayjs(date)
+      .hour(isMorning ? 9 : 16)
+      .minute(isMorning ? 0 : 30)
+      .second(0);
+    let toTime = dayjs(date)
+      .hour(isMorning ? 11 : 19)
+      .minute(0)
+      .second(0);
 
     while (fromTime <= toTime) {
       if (
         slotsForPeriod.length < 1 ||
         fromTime.format('HH:mm:ss') !== slotsForPeriod[0].time
       ) {
-        timeOptions.push({
+        options.push({
           value: fromTime.toDate(),
           label: formatTime(fromTime),
           group: isMorning ? morning : afternoon,
@@ -123,8 +138,10 @@
         slotsForPeriod.shift(); // remove first slot from booked slots
       }
 
-      fromTime.add(5, 'minutes');
+      fromTime = fromTime.add(5, 'minutes');
     }
+
+    return options;
   }
 
   function groupBy(item) {
@@ -135,6 +152,20 @@
     fullName = '';
     selectedDate = undefined;
     selectedTime = undefined;
+  }
+
+  function clearTimeOptions() {
+    selectedTime = undefined;
+    timeOptions = [];
+    updateButtonState();
+  }
+
+  function updateButtonState() {
+    disableButton =
+      fullName === '' ||
+      fullName === undefined ||
+      selectedDate === undefined ||
+      selectedTime === undefined;
   }
 
   async function onSubmit(e) {
@@ -178,22 +209,13 @@
     clearFields();
     showDialog = false;
   }
-
-  // onMount(() => {
-  //   let newDate;
-  //   for (let i = 0; i < 14; i++) {
-  //     newDate = addDays(startingDate, i);
-  //     dateOptions.push({ value: newDate, label: formatDate(newDate) });
-  //   }
-  //   console.log('==> date options set');
-  // });
 </script>
 
 <style>
   .themed {
     --borderRadius: 0;
+    --borderFocusColor: #333333;
     --itemHoverBG: #e8fdf5;
-    --placeholderColor: #000;
   }
 
   .themed .selectContainer > input::placeholder,
@@ -222,25 +244,29 @@
 
 <Dialog visible={showDialog} status={dialogStatus}>
   <p slot="header">{dialogTitle}</p>
-  <p slot="body">{dialogBody}</p>
+  <!-- <p slot="body">{dialogBody}</p> -->
   <div class={styles.action} slot="action">
     <button class={styles.button} on:click={onAcknowledge}>Okay!</button>
   </div>
 </Dialog>
-<!-- <Banner visible /> -->
 
 <h1 class={styles.title}>{$_('page.ivc.title')}</h1>
 <form class={styles.form}>
   <div class={styles.formGroup}>
-    <input bind:value={fullName} placeholder={namePlaceholder} />
+    <input
+      bind:value={fullName}
+      placeholder={namePlaceholder}
+      on:change={updateButtonState} />
   </div>
   <div class={styles.formGroup}>
     <!-- <label class={styles.label} for="date">{$_('field.date')}</label> -->
     <Select
       placeholder={datePlaceholder}
       items={dateOptions}
+      isSearchable={false}
       bind:selectedValue={selectedDate}
-      on:select={updateTimeslots} />
+      on:select={updateTimeslots}
+      on:clear={updateButtonState} />
   </div>
   <div class={styles.formGroup}>
     <!-- <label class={styles.label} for="time">{$_('field.time')}</label> -->
@@ -248,9 +274,17 @@
       placeholder={timePlaceholder}
       items={timeOptions}
       {groupBy}
-      bind:selectedValue={selectedTime} />
+      bind:selectedValue={selectedTime}
+      isSearchable={false}
+      on:select={updateButtonState}
+      on:clear={updateButtonState} />
   </div>
-  <button type="submit" class={styles.button} on:click={onSubmit}>
+  <button
+    type="submit"
+    class={styles.button}
+    class:disabled={disableButton}
+    disabled={disableButton}
+    on:click={onSubmit}>
     {$_('button.submit')}
   </button>
 </form>
