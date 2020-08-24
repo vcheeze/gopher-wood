@@ -266,7 +266,7 @@
       isSearchable={false}
       bind:selectedValue={selectedDate}
       on:select={updateTimeslots}
-      on:clear={updateButtonState} />
+      on:clear={clearTimeOptions} />
   </div>
   <div class={styles.formGroup}>
     <!-- <label class={styles.label} for="time">{$_('field.time')}</label> -->
