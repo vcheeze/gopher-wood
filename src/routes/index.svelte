@@ -2,8 +2,10 @@
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { auth, db } from '../firebase';
+  import Spinner from '../components/Spinner.svelte';
 
-  let qNumHeader = '',
+  let showSpinner = false,
+    qNumHeader = '',
     qNumBody = '';
 
   const styles = {
@@ -14,6 +16,7 @@
   };
 
   onMount(() => {
+    showSpinner = true;
     auth.signInAnonymously().catch(function(err) {
       var errCode = err.code;
       var errorMessage = err.message;
@@ -36,6 +39,7 @@
         qNumHeader = 'qNumHeader.currentNumber';
         qNumBody = currentNum.toString().padStart(4, '0');
       }
+      showSpinner = false;
     });
   });
 </script>
@@ -43,7 +47,7 @@
 <svelte:head>
   <!-- <title>{$_('clinic.fullName')}</title> -->
   <!-- <meta name="description" content={$_('clinic.description')} /> -->
-  <title>歌斐木診所</title>
+  <title>歌斐木診所 - {$_('page.home.title')}</title>
   <meta
     name="description"
     content="歌斐木診所。回歸起初創造之道，追求全人健康。" />
@@ -53,6 +57,8 @@
   <meta property="og:url" content="http://www.gopherwoodclinic.org" />
   <link rel="canonical" href="http://www.gopherwoodclinic.org" />
 </svelte:head>
+
+<!-- <Spinner visible={showSpinner} /> -->
 
 <div class={styles.logo}>
   <img src="/images/logo.svg" alt="logo" />

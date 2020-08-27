@@ -1,26 +1,40 @@
 <script>
-  import { onMount } from 'svelte';
   import { locale, _ } from 'svelte-i18n';
   import Select from 'svelte-select';
-  import moment from 'moment';
+  import dayjs from 'dayjs';
+  import Spinner from '../components/Spinner.svelte';
+  import Dialog from '../components/Dialog.svelte';
 
-  const today = moment();
+  let showSpinner = false;
+  let disableButton = true;
+  let showDialog = false,
+    dialogStatus = 'regular',
+    dialogTitle = '',
+    dialogBody = '';
+  const today = dayjs();
   let dateOptions = [];
   let timeOptions = [];
   let fullName = '',
     selectedDate = undefined,
     selectedTime = undefined;
   $: isEnglish = $locale === 'en';
+  $: namePlaceholder = isEnglish ? 'Enter your full name' : '姓名';
   $: datePlaceholder = isEnglish ? 'Select a date' : '選擇日期';
   $: timePlaceholder = isEnglish ? 'Select a time' : '選擇時間';
-  $: namePlaceholder = isEnglish ? 'Enter your full name' : '姓名';
+  $: successTitle = isEnglish ? 'Your appointment is booked!' : '預約成功！';
+  $: successText = isEnglish ? 'Appointment details' : '預約時段';
+  $: errorTitle = isEnglish ? 'Appointment failed :(' : '預約失敗';
+  $: errorText = isEnglish
+    ? 'Oops, something went wrong. Please try again.'
+    : '發生錯誤，麻煩您再預約一次！';
 
   const styles = {
     title: 'tc',
     form: 'mv2 mh8-ns',
     formGroup: 'pa2 themed',
     label: 'f5',
-    submitButton: 'bg-white ma2 pv2 ph4 fr pointer',
+    action: 'w-100',
+    button: 'primary fr',
   };
 
   // initialize date options
@@ -31,15 +45,15 @@
    * Only Tuesdays, Fridays, and Saturdays are viable.
    */
   function initDateOptions() {
-    let fromDate = moment().hour() < 9 ? today : today.add(1, 'days');
-    let toDate = moment(today).add(14, 'days');
+    let fromDate = dayjs().hour() < 9 ? today : today.add(1, 'days');
+    let toDate = today.add(14, 'days');
     while (fromDate <= toDate) {
       if (fromDate.day() === 2 || fromDate.day() === 5 || fromDate.day() === 6)
         dateOptions.push({
           value: fromDate.toDate(),
           label: formatDate(fromDate),
         });
-      fromDate.add(1, 'days'); // increment date
+      fromDate = fromDate.add(1, 'days'); // increment date
     }
   }
 
@@ -53,51 +67,81 @@
   }
 
   async function updateTimeslots() {
-    const date = moment(selectedDate.value);
+    showSpinner = true;
+
+    let bookedSlots = [];
+    const date = dayjs(selectedDate.value);
+    const now = dayjs();
     let response = await fetch(
       `/api/getBookedSlots?date=${date.format('YYYY-MM-DD')}`
     );
     if (response.ok) {
-      let json = await response.json();
-      console.log('==> json: ', json);
-      // TODO show success message
+      const { data } = await response.json();
+      // console.log('==> data: ', data);
+      bookedSlots = data;
     } else {
       // console.log('==> failed to get booked slots');
       // TODO show error message
     }
 
-    // if selected date is today
-    if (date.isSame(today, 'day')) {
-      if (moment().hour() < 9) {
-        addTimeslots(date, false);
-        timeOptions = timeOptions;
-      }
+    const tomorrow = today.add(1, 'days');
+    let newOptions = [];
+
+    if (date.isSame(today, 'day') && now.hour() < 9) {
+      // if selected date is today and it's before 9am
+      newOptions = addTimeslots(date, false, bookedSlots);
+    } else if (date.isSame(tomorrow, 'day')) {
+      // if selected date is tomorrow
+      newOptions = [
+        ...(now.hour() < 17 ? addTimeslots(date, true, bookedSlots) : []),
+        ...addTimeslots(date, false, bookedSlots),
+      ];
     } else {
-      addTimeslots(date, true);
-      addTimeslots(date, false);
-      timeOptions = timeOptions;
+      newOptions = [
+        ...addTimeslots(date, true, bookedSlots),
+        ...addTimeslots(date, false, bookedSlots),
+      ];
     }
-    // console.log('==> timeOptions: ', timeOptions);
+    selectedTime = undefined; // clear time selection
+    timeOptions = newOptions; // assign statement to make Svelte reload
+    showSpinner = false;
   }
 
-  function addTimeslots(date, isMorning) {
+  function addTimeslots(date, isMorning, bookedSlots) {
+    const slotsForPeriod = bookedSlots.filter(slot =>
+      isMorning ? slot.period === 'morning' : slot.period === 'afternoon'
+    );
     const morning = isEnglish ? 'Morning' : '早上';
     const afternoon = isEnglish ? 'Afternoon' : '下午';
 
-    let fromTime = moment(date).hour(isMorning ? 9 : 16);
-    fromTime.minute(isMorning ? 0 : 30);
-    fromTime.second(0);
-    let toTime = moment(date).hour(isMorning ? 11 : 19);
-    toTime.minute(0);
-    toTime.second(0);
+    let options = [];
+    let fromTime = dayjs(date)
+      .hour(isMorning ? 9 : 16)
+      .minute(isMorning ? 0 : 30)
+      .second(0);
+    let toTime = dayjs(date)
+      .hour(isMorning ? 11 : 19)
+      .minute(0)
+      .second(0);
+
     while (fromTime <= toTime) {
-      timeOptions.push({
-        value: fromTime.toDate(),
-        label: formatTime(fromTime),
-        group: isMorning ? morning : afternoon,
-      });
-      fromTime.add(5, 'minutes');
+      if (
+        slotsForPeriod.length < 1 ||
+        fromTime.format('HH:mm:ss') !== slotsForPeriod[0].time
+      ) {
+        options.push({
+          value: fromTime.toDate(),
+          label: formatTime(fromTime),
+          group: isMorning ? morning : afternoon,
+        });
+      } else {
+        slotsForPeriod.shift(); // remove first slot from booked slots
+      }
+
+      fromTime = fromTime.add(5, 'minutes');
     }
+
+    return options;
   }
 
   function groupBy(item) {
@@ -110,19 +154,33 @@
     selectedTime = undefined;
   }
 
+  function clearTimeOptions() {
+    selectedTime = undefined;
+    timeOptions = [];
+    updateButtonState();
+  }
+
+  function updateButtonState() {
+    disableButton =
+      fullName === '' ||
+      fullName === undefined ||
+      selectedDate === undefined ||
+      selectedTime === undefined;
+  }
+
   async function onSubmit(e) {
     e.preventDefault();
-    const time = moment(selectedTime.value);
-    const date = moment(selectedDate.value);
+    showSpinner = true;
+
+    const time = dayjs(selectedTime.value);
+    const date = dayjs(selectedDate.value);
     const data = {
       fullName,
       date: date.format('YYYY-MM-DD'),
       time: time.format('HH:mm:ss'),
       period: time.hour() < 11 ? 'morning' : 'afternoon',
     };
-    console.log('==> data: ', data);
-    debugger;
-
+    // console.log('==> data: ', data);
     let response = await fetch(`/api/submitIvcAppointment`, {
       method: 'POST',
       headers: {
@@ -133,30 +191,32 @@
 
     if (response.ok) {
       let json = await response.json();
-      console.log('==> json: ', json);
-      clearFields();
-      // TODO show success message
+      // console.log('==> json: ', json);
+      dialogStatus = 'success';
+      dialogTitle = successTitle;
+      dialogBody = successText;
     } else {
-      console.log('==> failed to book IVC appointment');
-      // TODO show error message
+      // console.log('==> failed to book IVC appointment');
+      dialogStatus = 'error';
+      dialogTitle = errorTitle;
+      dialogBody = errorText;
     }
+
+    showDialog = true;
+    showSpinner = false;
   }
 
-  // onMount(() => {
-  //   let newDate;
-  //   for (let i = 0; i < 14; i++) {
-  //     newDate = addDays(startingDate, i);
-  //     dateOptions.push({ value: newDate, label: formatDate(newDate) });
-  //   }
-  //   console.log('==> date options set');
-  // });
+  function onAcknowledge() {
+    clearFields();
+    showDialog = false;
+  }
 </script>
 
 <style>
   .themed {
     --borderRadius: 0;
-    --itemHoverBG: rgb(232, 253, 245);
-    --placeholderColor: #000;
+    --borderFocusColor: #333333;
+    --itemHoverBG: #e8fdf5;
   }
 
   .themed .selectContainer > input::placeholder,
@@ -170,34 +230,62 @@
 </style>
 
 <svelte:head>
-  <title>IVC</title>
+  <title>歌斐木診所 - {$_('page.ivc.title')}</title>
+  <meta
+    name="description"
+    content={`歌斐木診所 - ${$_('page.ivc.description')}`} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={$_('clinic.fullName')} />
+  <meta property="og:description" content={$_('clinic.description')} />
+  <meta property="og:url" content="http://www.gopherwoodclinic.org" />
+  <link rel="canonical" href="http://www.gopherwoodclinic.org" />
 </svelte:head>
+
+<Spinner visible={showSpinner} />
+
+<Dialog visible={showDialog} status={dialogStatus}>
+  <p slot="header">{dialogTitle}</p>
+  <!-- <p slot="body">{dialogBody}</p> -->
+  <div class={styles.action} slot="action">
+    <button class={styles.button} on:click={onAcknowledge}>Okay!</button>
+  </div>
+</Dialog>
 
 <h1 class={styles.title}>{$_('page.ivc.title')}</h1>
 <form class={styles.form}>
   <div class={styles.formGroup}>
-    <input bind:value={fullName} placeholder={namePlaceholder} />
+    <input
+      bind:value={fullName}
+      placeholder={namePlaceholder}
+      on:change={updateButtonState} />
   </div>
   <div class={styles.formGroup}>
     <!-- <label class={styles.label} for="date">{$_('field.date')}</label> -->
     <Select
-      id="date"
       placeholder={datePlaceholder}
       items={dateOptions}
+      isSearchable={false}
       bind:selectedValue={selectedDate}
-      on:select={updateTimeslots} />
+      on:select={updateTimeslots}
+      on:clear={clearTimeOptions} />
   </div>
   <div class={styles.formGroup}>
     <!-- <label class={styles.label} for="time">{$_('field.time')}</label> -->
     <Select
-      id="time"
       placeholder={timePlaceholder}
       items={timeOptions}
       {groupBy}
-      bind:selectedValue={selectedTime} />
+      bind:selectedValue={selectedTime}
+      isSearchable={false}
+      on:select={updateButtonState}
+      on:clear={updateButtonState} />
   </div>
-
-  <button type="submit" class={styles.submitButton} on:click={onSubmit}>
-    Submit
+  <button
+    type="submit"
+    class={styles.button}
+    class:disabled={disableButton}
+    disabled={disableButton}
+    on:click={onSubmit}>
+    {$_('button.submit')}
   </button>
 </form>

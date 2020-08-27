@@ -1,7 +1,10 @@
 <script>
   import { onMount } from 'svelte';
   import { locale, _ } from 'svelte-i18n';
+
+  /*--- props ---*/
   export let segment;
+  /*--- END props ---*/
 
   /*--- setup for GSAP animation ---*/
   let menuToggle;
@@ -17,7 +20,7 @@
     a: 'no-underline pv3 ph2 db',
     locale: 'dib pv3 ph2 pointer dim',
     burger: 'dn-ns pr2',
-    menu: 'absolute dt vh-100 w-100 bg-dark-gray', // add z-index?
+    menu: 'absolute dt vh-100 w-100 bg-dark-gray z-998',
     menuList: 'ma0 pa0 dtc v-mid tc',
     menuItem: 'db pointer f2 near-white',
   };
@@ -87,7 +90,7 @@
     content: '';
     width: calc(100% - 1rem);
     height: 2px;
-    background-color: rgb(25, 169, 116);
+    background-color: #19a974;
     display: block;
     bottom: -1px;
   }
@@ -160,11 +163,11 @@
           {$_('nav.home')}
         </a>
       </li>
-      <!-- <li class={styles.menuItem} on:click={handleBurgerClick}>
-        <a class={styles.a} class:selected={segment === 'about'} href="about">
-          {$_('nav.about')}
+      <li class={styles.menuItem} on:click={handleBurgerClick}>
+        <a class={styles.a} class:selected={segment === 'ivc'} href="ivc">
+          {$_('nav.ivc')}
         </a>
-      </li> -->
+      </li>
     </ul>
   </div>
 {/if}

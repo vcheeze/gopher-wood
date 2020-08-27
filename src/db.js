@@ -1,5 +1,5 @@
 import mariadb from 'mariadb';
 
-const pool = mariadb.createPool({ host: '18.162.203.225', port: 3306, user: 'gwuser', password: 'gdubsuperadmin', connectionLimit: 2 });
+const pool = mariadb.createPool({ host: 'localhost', port: 3306, user: 'gwuser', password: 'gdubsuperadmin', connectionLimit: 3 });
 
 export default pool;

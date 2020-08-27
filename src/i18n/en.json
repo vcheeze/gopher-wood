@@ -14,7 +14,8 @@
       "title": "Home"
     },
     "ivc": {
-      "title": "IVC Appointment"
+      "title": "IVC Appointment",
+      "description": "Make appointments for IVC in Gopher Wood Clinic here."
     },
     "appointment": {
       "title": "View Appointment"
@@ -46,5 +47,9 @@
       "weekdays": "Mon - Fri | 9:00 - 13:00， 17:00 - 21:00 (16:00 - 17:00 appointments-only）",
       "weekend": "Sat | 9:00 - 13:00"
     }
+  },
+  "sucess": {
+    "title": "Your appointment is booked!",
+    "text": "Appointment details"
   }
 }

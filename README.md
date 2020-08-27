@@ -99,7 +99,7 @@ However, we still have to configure MariaDB on the server to accept this user ce
 GRANT ALL PRIVILEGES ON gopher_wood.* TO 'gwuser'@'[the_IP_address_to_add]' IDENTIFIED BY 'gdubsuperadmin';
 ```
 
-Replace `[the_IP_address_to_add]` with the your IP address. This will grant the user `gwuser` accessing the database from the specified IP address all privileges on the database `gopher_wood` - including all the tables in it (specified by `.*` following `gopher_wood`).
+Replace `[the_IP_address_to_add]` with the your IP address. After this, run `FLUSH PRIVILEGES;` in order to reload privileges on the database. This will grant the user `gwuser` accessing the database from the specified IP address all privileges on the database `gopher_wood` - including all the tables in it (specified by `.*` following `gopher_wood`).
 
 ### Release Management and Naming Conventions
 
