@@ -17,7 +17,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.1",
-    "firebase": "^7.17.1",
+    "firebase": "^7.18.0",
     "helmet": "^3.23.3",
     "mariadb": "^2.4.2",
     "moment": "^2.27.0",
@@ -53,6 +53,7 @@
     "sapper": "^0.27.16",
     "svelte": "^3.24.1",
     "svelte-preprocess": "^3.9.12",
-    "svelte-select": "^3.10.0"
+    "svelte-select": "^3.11.1",
+    "svelte-table": "^0.1.9"
   }
 }

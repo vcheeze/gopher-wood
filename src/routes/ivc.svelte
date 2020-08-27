@@ -59,7 +59,7 @@
     );
     if (response.ok) {
       let json = await response.json();
-      // console.log('==> json: ', json);
+      console.log('==> json: ', json);
       // TODO show success message
     } else {
       // console.log('==> failed to get booked slots');
@@ -122,6 +122,7 @@
     };
     console.log('==> data: ', data);
     debugger;
+
     let response = await fetch(`/api/submitIvcAppointment`, {
       method: 'POST',
       headers: {
@@ -129,6 +130,7 @@
       },
       body: JSON.stringify(data),
     });
+
     if (response.ok) {
       let json = await response.json();
       console.log('==> json: ', json);
@@ -194,7 +196,8 @@
       {groupBy}
       bind:selectedValue={selectedTime} />
   </div>
+
   <button type="submit" class={styles.submitButton} on:click={onSubmit}>
-    {$_('button.submit')}
+    Submit
   </button>
 </form>

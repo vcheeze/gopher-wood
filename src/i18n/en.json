@@ -2,7 +2,8 @@
   "nav": {
     "home": "home",
     "about": "about",
-    "ivc": "ivc appointment"
+    "ivc": "ivc appointment",
+    "appointment": "view appointment"
   },
   "page": {
     "about": {
@@ -14,6 +15,9 @@
     },
     "ivc": {
       "title": "IVC Appointment"
+    },
+    "appointment": {
+      "title": "View Appointment"
     }
   },
   "field": {
@@ -28,7 +32,8 @@
     "period.afternoon": "Afternoon"
   },
   "button": {
-    "submit": "Submit"
+    "submit": "Submit",
+    "get.appointment": "View Appointments"
   },
   "qNumHeader.closed": "Closed",
   "qNumHeader.currentNumber": "Current Number",

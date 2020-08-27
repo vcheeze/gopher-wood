@@ -1,7 +1,8 @@
 import pool from '../../db';
 
 export async function get(req, res, next) {
-  const { date } = req.query;
+  const { date, var2 } = req.query;
+  console.log("date", date);
   let conn;
 
   try {
