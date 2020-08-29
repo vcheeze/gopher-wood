@@ -1,8 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-  import { locale, _, date } from 'svelte-i18n';
+  import { locale, _ } from 'svelte-i18n';
   import Select from 'svelte-select';
-  import moment from 'moment';
   import SvelteTable from 'svelte-table';
 
   const styles = {
@@ -10,7 +9,7 @@
     form: 'mv2 mh8-ns',
     formGroup: 'pa2 themed',
     label: 'f5',
-    submitButton: 'bg-white ma2 pv2 ph4 fr pointer',
+    submitButton: 'primary bg-white ma2 pv2 ph4 fr pointer',
   };
 
   $: isEnglish = $locale === 'en';
@@ -98,6 +97,7 @@
 
   function makeQuery(e) {
     e.preventDefault();
+
     if (fullName === undefined) fullName = 0;
     if (dateFrom === undefined || dateFrom === undefined) {
       dateFrom = 0;
@@ -156,8 +156,9 @@
 </style>
 
 <svelte:head>
-  <title>Appointment</title>
+  <title>歌斐木診所 - {$_('page.appointment.title')}</title>
 </svelte:head>
+
 <form class={styles.form}>
   <div class={styles.formGroup}>
     <Select
@@ -181,7 +182,7 @@
   {/if}
 
   <button type="submit" class={styles.submitButton} on:click={makeQuery}>
-    submitButton
+    {$_('button.submit')}
   </button>
 </form>
 

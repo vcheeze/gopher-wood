@@ -13,13 +13,15 @@ body {
   height: 100%;
 }
 
-input:hover {
-  border-color: #b2b8bf;
-}
+input {
+  &:hover {
+    border-color: #b2b8bf;
+  }
 
-input:focus {
-  border: 1px solid #333333;
-  outline: none;
+  &:focus {
+    border: 1px solid #333333;
+    outline: none;
+  }
 }
 
 button {
@@ -28,21 +30,39 @@ button {
   border: 2px solid #333333;
   margin: 0.5rem;
   padding: 0.5rem 1rem;
+
+  &.primary:not(.disabled) {
+    border-color: #19a974;
+    background-color: #ffffff;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #19a974;
+    }
+  }
+
+  &.disabled {
+    border-color: #78848f;
+    background-color: #ffffff;
+    color: #78848f;
+    cursor: not-allowed;
+  }
 }
 
-button.primary:not(.disabled) {
-  border-color: #19a974;
-  background-color: #ffffff;
-  cursor: pointer;
-}
+// svelte-select styles
+.themed {
+  --borderRadius: 0;
+  --borderFocusColor: #333333;
+  --itemHoverBG: #e8fdf5;
 
-button.primary:not(.disabled):hover {
-  background-color: #19a974;
-}
-
-button.disabled {
-  border-color: #78848f;
-  background-color: #ffffff;
-  color: #78848f;
-  cursor: not-allowed;
+  & .selectContainer > input {
+    &::placeholder,
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &:-moz-placeholder,
+    &::-moz-placeholder {
+      font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
+        Fira Sans, Helvetica Neue, sans-serif;
+    }
+  }
 }
