@@ -132,11 +132,6 @@
           {$_('nav.about')}
         </a>
       </li> -->
-      <li class={styles.li}>
-        <a class={styles.a} class:selected={segment === 'ivc'} href="ivc">
-          {$_('nav.ivc')}
-        </a>
-      </li>
     </ul>
   </div>
   <div>
@@ -153,11 +148,6 @@
       <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a class={styles.a} class:selected={segment === undefined} href=".">
           {$_('nav.home')}
-        </a>
-      </li>
-      <li class={styles.menuItem} on:click={handleBurgerClick}>
-        <a class={styles.a} class:selected={segment === 'ivc'} href="ivc">
-          {$_('nav.ivc')}
         </a>
       </li>
     </ul>
