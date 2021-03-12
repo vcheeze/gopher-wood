@@ -24,6 +24,9 @@
   "field": {
     "name": "Full Name",
     "name.placeholder": "Enter your full name",
+    "telephone": "Phone Number",
+    "prevAppointment": "Please select the timeslot you would like to modify",
+    "newOptions": "Please select a new date and time",
     "date": "Date",
     "date.placeholder": "Select a date",
     "period": "Period",
@@ -34,10 +37,13 @@
   },
   "button": {
     "submit": "Submit",
-    "get.appointment": "View Appointments"
+    "get.appointment": "View Appointments",
+    "search": "Search"
   },
-  "qNumHeader.closed": "Closed",
-  "qNumHeader.currentNumber": "Current Number",
+  "qNumHeader": {
+    "closed": "Closed",
+    "currentNumber": "Current Number"
+  },
   "clinic": {
     "fullName": "Gopher Wood Clinic",
     "name": "Gopher Wood",
@@ -51,5 +57,13 @@
   "sucess": {
     "title": "Your appointment is booked!",
     "text": "Appointment details"
+  },
+  "ivcOptions": {
+    "newAppointment": "New Appointment",
+    "modifyAppointment": "Update/Cancel Appointment"
+  },
+  "editOptions": {
+    "update": "Update appointment",
+    "cancel": "Cancel appointment"
   }
 }

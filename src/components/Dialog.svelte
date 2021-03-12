@@ -7,10 +7,12 @@
     faTimesCircle,
   } from '@fortawesome/free-regular-svg-icons';
 
+  /*--- props ---*/
   export let visible = false;
   export let status = 'regular';
   // export let headerTitle = 'Dialog title';
   // export let message = 'Dialog body';
+  /*--- END props ---*/
 
   const styles = {
     dialogContainer:
