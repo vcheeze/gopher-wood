@@ -137,6 +137,14 @@
           {$_('nav.ivc')}
         </a>
       </li>
+      <!-- <li class={styles.li}>
+        <a
+          class={styles.a}
+          class:selected={segment === 'appointment'}
+          href="appointment">
+          {$_('nav.appointment')}
+        </a>
+      </li> -->
     </ul>
   </div>
   <div>

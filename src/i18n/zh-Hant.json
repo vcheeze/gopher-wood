@@ -2,7 +2,8 @@
   "nav": {
     "home": "首頁",
     "about": "關於",
-    "ivc": "預約注射"
+    "ivc": "預約注射",
+    "appointment": "查看預約"
   },
   "page": {
     "about": {
@@ -15,11 +16,17 @@
     "ivc": {
       "title": "預約注射",
       "description": "預約注射IVC"
+    },
+    "appointment": {
+      "title":"查看預約"
     }
   },
   "field": {
     "name": "姓名",
     "name.placeholder": "姓名",
+    "telephone": "手機號碼",
+    "prevAppointment": "請選擇欲更改或取消的時段",
+    "newOptions": "請選擇欲更改至的日期與時間",
     "date": "日期",
     "date.placeholder": "選擇日期",
     "period": "時段",
@@ -29,10 +36,14 @@
     "period.afternoon": "下午"
   },
   "button": {
-    "submit": "確認"
+    "submit":"確認",
+    "get.appointment": "查詢預約",
+    "search": "查詢"
   },
-  "qNumHeader.closed": "休診中",
-  "qNumHeader.currentNumber": "即時診號",
+  "qNumHeader": {
+    "closed": "休診中",
+    "currentNumber": "即時診號"
+  },
   "clinic": {
     "fullName": "歌斐木診所",
     "name": "歌斐木",
@@ -46,5 +57,13 @@
   "sucess": {
     "title": "預約成功！",
     "text": "約診時段"
+  },
+  "ivcOptions": {
+    "newAppointment": "預約注射",
+    "modifyAppointment": "更改/取消注射"
+  },
+  "editOptions": {
+    "update": "更改注射",
+    "cancel": "取消注射"
   }
 }

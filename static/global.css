@@ -52,6 +52,11 @@ input {
 	border-radius: 0;
 }
 
+input[type="radio"] {
+	height: unset;
+	width: unset;
+}
+
 ::placeholder {
   font-family: Taipei Sans, huninn, Roboto, -apple-system, Segoe UI, Ubuntu,
 	Fira Sans, Helvetica Neue, sans-serif;

@@ -32,7 +32,7 @@
     const queueNumRef = db.ref('queue-number');
     queueNumRef.on('value', snapshot => {
       const { currentNum } = snapshot.val();
-      if (currentNum > 999) {
+      if (currentNum === 0 || currentNum > 999) {
         qNumHeader = 'qNumHeader.closed';
         qNumBody = '----';
       } else {
