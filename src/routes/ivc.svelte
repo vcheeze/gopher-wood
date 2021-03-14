@@ -9,7 +9,8 @@
     disableSearchBtn = true;
   let showDialog = false,
     dialogStatus = 'regular',
-    dialogTitle = '';
+    dialogTitle = '',
+    dialogBody = '';
   const tabItems = [
     { id: 'newAppointment', label: 'ivcOptions.newAppointment' },
     { id: 'modifyAppointment', label: 'ivcOptions.modifyAppointment' },
