@@ -25,8 +25,8 @@
   let hideNewOptions = true;
   const onTabClick = tabId => {
     return () => {
-      updateFormState();
       selectedTab = tabId;
+      updateFormState();
     };
   };
   const today = dayjs();
@@ -200,8 +200,13 @@
   }
 
   function updateFieldsState() {
-    hidePrevAppointments = !prevAppointmentsFetched;
-    hideNewOptions = !prevAppointmentsFetched || selectedEditType === 'cancel';
+    console.log('==> selectedTab: ', selectedTab);
+    hidePrevAppointments =
+      !prevAppointmentsFetched || selectedTab === 'newAppointment';
+    hideNewOptions =
+      !prevAppointmentsFetched ||
+      selectedEditType === 'cancel' ||
+      selectedTab === 'newAppointment';
   }
 
   function updateButtonsState() {
