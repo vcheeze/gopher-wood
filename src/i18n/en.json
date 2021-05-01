@@ -1,8 +1,9 @@
 {
   "nav": {
     "home": "home",
-    "about": "about",
     "ivc": "ivc appointment",
+    "about": "about",
+    "contact": "contact us",
     "appointment": "view appointment"
   },
   "page": {
@@ -19,6 +20,9 @@
     },
     "appointment": {
       "title": "View Appointment"
+    },
+    "contact": {
+      "title": "Contact Us"
     }
   },
   "field": {
