@@ -6,6 +6,12 @@
   <title>Contact Us</title>
 </svelte:head>
 
-<h1>Contact Us</h1>
+<h1>{$_('page.contact.title')}</h1>
 
-<p>Please fill out this form to contact us.</p>
+<p>
+  地址：新竹縣竹北市文興路二段7號
+</p>
+
+<p>
+  電話：（03）668-8081
+</p>

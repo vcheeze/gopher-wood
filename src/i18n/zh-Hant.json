@@ -1,8 +1,9 @@
 {
   "nav": {
     "home": "首頁",
-    "about": "關於",
     "ivc": "預約注射",
+    "about": "關於",
+    "contact": "聯絡我們",
     "appointment": "查看預約"
   },
   "page": {
@@ -19,6 +20,9 @@
     },
     "appointment": {
       "title":"查看預約"
+    },
+    "contact": {
+      "title": "聯絡我們"
     }
   },
   "field": {

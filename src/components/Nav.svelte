@@ -127,14 +127,19 @@
           {$_('nav.home')}
         </a>
       </li>
-      <!-- <li class={styles.li}>
-        <a class={styles.a} class:selected={segment === 'about'} href="about">
-          {$_('nav.about')}
-        </a>
-      </li> -->
       <li class={styles.li}>
         <a class={styles.a} class:selected={segment === 'ivc'} href="ivc">
           {$_('nav.ivc')}
+        </a>
+      </li>
+      <li class={styles.li}>
+        <a class={styles.a} class:selected={segment === 'about'} href="about">
+          {$_('nav.about')}
+        </a>
+      </li>
+      <li class={styles.li}>
+        <a class={styles.a} class:selected={segment === 'contact'} href="contact">
+          {$_('nav.contact')}
         </a>
       </li>
       <!-- <li class={styles.li}>
@@ -166,6 +171,16 @@
       <li class={styles.menuItem} on:click={handleBurgerClick}>
         <a class={styles.a} class:selected={segment === 'ivc'} href="ivc">
           {$_('nav.ivc')}
+        </a>
+      </li>
+      <li class={styles.menuItem} on:click={handleBurgerClick}>
+        <a class={styles.a} class:selected={segment === 'about'} href="about">
+          {$_('nav.about')}
+        </a>
+      </li>
+      <li class={styles.menuItem} on:click={handleBurgerClick}>
+        <a class={styles.a} class:selected={segment === 'contact'} href="contact">
+          {$_('nav.contact')}
         </a>
       </li>
     </ul>
