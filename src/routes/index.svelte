@@ -1,7 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { auth, db } from '../firebase';
   import Spinner from '../components/Spinner.svelte';
 
   let showSpinner = false,
@@ -15,32 +14,40 @@
     hours: 'tc',
   };
 
-  onMount(() => {
+  function updateQueueNumber(currentNum) {
+    if (currentNum === 0 || currentNum > 999) {
+      qNumHeader = 'qNumHeader.closed';
+      qNumBody = '----';
+    } else {
+      qNumHeader = 'qNumHeader.currentNumber';
+      qNumBody = currentNum.toString().padStart(4, '0');
+    }
+  }
+
+  onMount(async () => {
+    const sse = new EventSource('queueNumber');
+    sse.onmessage = e => {
+      const currentNum = parseInt(e.data);
+      updateQueueNumber(currentNum);
+    };
+
     showSpinner = true;
-    auth.signInAnonymously().catch(function(err) {
-      var errCode = err.code;
-      var errorMessage = err.message;
-    });
-    auth.onAuthStateChanged(function(user) {
-      if (user) {
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-      } else {
-        // user is signed out
+
+    let response = await fetch('/api/getCurrentQueueNumber');
+    if (response.ok) {
+      const { data } = await response.json();
+      updateQueueNumber(data.q_value);
+    } else {
+      // TODO show error message
+    }
+
+    showSpinner = false;
+
+    return () => {
+      if (sse.readyState === 1) {
+        sse.close();
       }
-    });
-    const queueNumRef = db.ref('queue-number');
-    queueNumRef.on('value', snapshot => {
-      const { currentNum } = snapshot.val();
-      if (currentNum === 0 || currentNum > 999) {
-        qNumHeader = 'qNumHeader.closed';
-        qNumBody = '----';
-      } else {
-        qNumHeader = 'qNumHeader.currentNumber';
-        qNumBody = currentNum.toString().padStart(4, '0');
-      }
-      showSpinner = false;
-    });
+    };
   });
 </script>
 
@@ -58,7 +65,7 @@
   <link rel="canonical" href="http://www.gopherwoodclinic.org" />
 </svelte:head>
 
-<!-- <Spinner visible={showSpinner} /> -->
+<Spinner visible={showSpinner} />
 
 <div class={styles.logo}>
   <img src="/images/logo.svg" alt="logo" />
