@@ -3,7 +3,6 @@ import {
   createSuccessResponse,
   createErrorResponse,
 } from '../../utils/responses';
-let conn;
 
 export async function post(req, res, next) {
   const {oldDate, oldTime, newDate, newTime, period} = req.body;
@@ -13,6 +12,7 @@ export async function post(req, res, next) {
     WHERE date = '${oldDate}' AND time = '${oldTime}'
   `;
 
+  let conn;
   try {
     conn = await pool.getConnection(); 
     const rows = await conn.query(query);
