@@ -13,6 +13,7 @@ export async function post(req, res, next) {
   `;
 
   let conn;
+  
   try {
     conn = await pool.getConnection(); 
     const rows = await conn.query(query);

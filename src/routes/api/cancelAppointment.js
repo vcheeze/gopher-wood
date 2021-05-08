@@ -3,14 +3,15 @@ import {
   createSuccessResponse,
   createErrorResponse,
 } from '../../utils/responses';
-let conn;
 
 export async function post(req, res, next) {
   const {date, time} = req.body;
   const query = `
-    DELETE FROM gopher_wood.timeslots
-    WHERE date = '${date}' AND time = '${time}'
+  DELETE FROM gopher_wood.timeslots
+  WHERE date = '${date}' AND time = '${time}'
   `;
+  
+  let conn;
 
   try {
     conn = await pool.getConnection(); 
