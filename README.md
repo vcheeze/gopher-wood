@@ -11,13 +11,14 @@ Official app for Gopher Wood Clinic.
   - [Technologies](#technologies)
     - [Frontend](#frontend)
     - [Backend](#backend)
+    - [User Authentication / Management](#user-authentication--management)
   - [Release Management and Naming Conventions](#release-management-and-naming-conventions)
   - [Features Sets](#features-sets)
 - [Notes & Resources](#notes--resources)
   - [PWAs (Progressive Web Apps)](#pwas-progressive-web-apps)
   - [Database/Offline Functionality](#databaseoffline-functionality)
   - [Design Principles](#design-principles)
-  - [Security](#security)
+  - [Authentication / Security](#authentication--security)
   - [Dev environment setup](#dev-environment-setup)
   - [Animations](#animations)
   - [DevOps](#devops)
@@ -101,6 +102,11 @@ GRANT ALL PRIVILEGES ON gopher_wood.* TO 'gwuser'@'[the_IP_address_to_add]' IDEN
 
 Replace `[the_IP_address_to_add]` with the your IP address. After this, run `FLUSH PRIVILEGES;` in order to reload privileges on the database. This will grant the user `gwuser` accessing the database from the specified IP address all privileges on the database `gopher_wood` - including all the tables in it (specified by `.*` following `gopher_wood`).
 
+#### User Authentication / Management
+
+We use [Auth0](https://manage.auth0.com/dashboard) as the user authentication system. There is an Auth0 account created linked to vcheeze's GitHub account.
+Within the Auth0 dashboard you will see an application called Gopher Wood, and that is where our system is set up.
+
 ### Release Management and Naming Conventions
 
 Simply put, `master` is the code base for production deployment. `dev` is used as a consolidation of all development work. Testing will be conducted on this branch and then merged into `master`. The following outlines descriptions and naming conventions of branches.
@@ -183,10 +189,11 @@ IVC Appointment. Set up simple about and contact us pages.
 - [How to Design a Better Progressive Web App](https://www.telerik.com/blogs/how-to-design-a-better-progressive-web-app)
 - [Adobe XD UI kits](https://www.adobe.com/mena_en/products/xd/resources.html?promoid=WXYGJ27F&mv=other#panel-3)
 
-### Security
+### Authentication / Security
 
 - [JWT](https://jwt.io)
 - [JWT npm package](https://www.npmjs.com/package/jsonwebtoken)
+- [Auth0: Mobile Device Login Flow Best Practices](https://auth0.com/docs/best-practices/mobile-device-login-flow-best-practices)
 
 ### Dev environment setup
 
