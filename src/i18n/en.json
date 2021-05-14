@@ -63,8 +63,8 @@
     "text": "Appointment details"
   },
   "ivcOptions": {
-    "newAppointment": "New Appointment",
-    "modifyAppointment": "Update/Cancel Appointment"
+    "newAppointment": "New",
+    "modifyAppointment": "Update/Cancel"
   },
   "editOptions": {
     "update": "Update appointment",
