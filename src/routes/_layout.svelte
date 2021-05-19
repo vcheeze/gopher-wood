@@ -2,7 +2,7 @@
   import { isLoading, waitLocale } from 'svelte-i18n';
 
   export async function preload() {
-    return waitLocale('zh-Hant');
+    return waitLocale();
   }
 </script>
 
