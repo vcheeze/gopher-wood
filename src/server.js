@@ -4,18 +4,14 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import SSE from 'express-sse';
+import * as sapper from '@sapper/server';
+
+import { i18nMiddleware } from './i18n';
 import pool from './db';
 import {
   createSuccessResponse,
   createErrorResponse,
 } from './utils/responses';
-import * as sapper from '@sapper/server';
-import { init } from 'svelte-i18n';
-
-init({
-	fallbackLocale: 'en',
-	initialLocale: 'zh-Hant',
-});
 
 // SSE
 const sse = new SSE(0);
@@ -60,7 +56,8 @@ app
 		helmet(),
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
-		sapper.middleware()
+		i18nMiddleware(),
+		sapper.middleware(),
 	);
 
 app.listen(PORT, err => {
