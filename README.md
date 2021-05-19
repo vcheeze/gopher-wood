@@ -46,13 +46,13 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ### Architecture
 
-Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood). We utilize AWS for hosting the app. The domain is currently bought from [GoDaddy](https://www.godaddy.com). GoDaddy is configured in its `www` CNAME record to point to an Application Load Balancer on AWS, which in turns routes port 80 to port 3000 of our EC2 instance (running Ubuntu 18), on which our app is running.
+Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood). We currently utilize AWS for hosting the app, but are in the process of migrating to [Hostinger](https://www.hostinger.com). The domain is currently bought from [GoDaddy](https://www.godaddy.com). With AWS, GoDaddy is configured in its `www` CNAME record to point to an Application Load Balancer on AWS, which in turns routes port 80 to port 3000 of our EC2 instance (running Ubuntu 18), on which our app is running. This will 
 
 In the EC2 instance, [pm2](https://pm2.keymetrics.io/) is utilized to serve the app. In order to deploy the app again, simply `git pull` in the repo (found in `~/gopher-wood/`), `npm i` if `package.json` has been changed, then `npm run build`. pm2 should pick up the changes automatically from `__sapper__/build/` and serve the updated files. If your changes are not reflected, simply run `pm2 restart [PID of our process]` in the terminal. You can find the PID by entering `pm2 list`. If you need to start an entire new process, run `pm2 start pm2 start __sapper__/build` to start serving the app.
 
-For IVC appointments, we use MariaDB to store booked appointments. This feature has not been deployed yet and is not in our EC2 VM yet.
+For IVC appointments, we use MariaDB to store booked appointments.
 
-For real time functionality, we are currently using Firebase's realtime DB. For the future, we should consider using web sockets with MariaDB so that our DB is centralized. We can also consider [RethinkDB](https://rethinkdb.com) as an alternative.
+For real time functionality, we are using [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) with our existing MariaDB.
 
 ### Technologies
 
@@ -81,6 +81,8 @@ With regards to Tachyons, how well it integrates with Sapper still remains to be
   </style>
   <p class:dynamic={condition.isTrue()}></p>
   ```
+
+For internationalization, we use [svelte-i18n](https://github.com/kaisermann/svelte-i18n) to accommodate both English and Traditional Chinese. The author of this package has an [example with Sapper](https://github.com/kaisermann/sapper-template-i18n) that we have referred to in order to incorporate `svelte-i18n` into our app.
 
 And that's it! Go and get started on Svelte and Tachyons :)
 
@@ -152,6 +154,13 @@ Build a simple PWA with client and server in place, including proper security me
 
 IVC Appointment. Set up simple about and contact us pages.
 
+#### Sprint 3 <!-- omit in toc -->
+
+Add admin pages:
+- Login system with [Auth0](https://auth0.com/)
+- Page to view appointments (think about table and calendar views)
+- Page to update IVC appointment rules (i.e. how many days in advance, when is the latest someone can get an appointment, etc.)
+
 ## Notes & Resources
 
 ### PWAs (Progressive Web Apps)
@@ -211,6 +220,7 @@ JS:
 - [Velocity.js](http://velocityjs.org/) (a jQuery-like but much more performant library)
 - [SVG.js](https://svgjs.com/docs/3.0)
 - [Lottie](http://airbnb.io/lottie/#/README)
+- [Popmotion](https://popmotion.io)
 
 ### DevOps
 - [Node-Express app deployment](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment)
