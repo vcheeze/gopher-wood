@@ -1,5 +1,7 @@
 import * as sapper from '@sapper/app';
-import './i18n';
+import { startClient } from './i18n';
+
+startClient();
 
 sapper.start({
 	target: document.querySelector('#sapper')

@@ -8,7 +8,7 @@
       this.redirect(302, 'login');
     }
 
-    return waitLocale('zh-Hant');
+    return waitLocale();
   }
 </script>
 

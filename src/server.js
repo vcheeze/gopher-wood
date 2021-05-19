@@ -4,22 +4,18 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import SSE from 'express-sse';
-import pool from './db';
-import {
-  createSuccessResponse,
-  createErrorResponse,
-} from './utils/responses';
 import * as sapper from '@sapper/server';
-import { init } from 'svelte-i18n';
 import { auth } from 'express-openid-connect';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-init({
-	fallbackLocale: 'en',
-	initialLocale: 'zh-Hant',
-});
+import { i18nMiddleware } from './i18n';
+import pool from './db';
+import {
+  createSuccessResponse,
+  createErrorResponse,
+} from './utils/responses';
 
 // SSE
 const sse = new SSE(0);
@@ -96,6 +92,8 @@ app
 				},
 			})(req, res, next);
 		},
+		i18nMiddleware(),
+		sapper.middleware(),
 	);
 
 app.listen(PORT, err => {
