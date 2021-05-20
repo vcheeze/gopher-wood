@@ -20,15 +20,15 @@
     "compression": "^1.7.1",
     "dayjs": "^1.8.34",
     "dotenv": "^9.0.0",
+    "express": "^4.17.1",
+    "express-openid-connect": "^2.3.1",
     "express-sse": "0.5.1",
     "helmet": "^3.23.3",
     "mariadb": "^2.4.2",
-    "polka": "next",
     "sirv": "^0.4.6",
     "svelte-awesome": "^2.3.0",
     "svelte-i18n": "^3.0.4",
     "svelte-loading-spinners": "^0.1.1",
-    "svelte-table": "^0.1.9",
     "tachyons-sass": "^4.9.5"
   },
   "devDependencies": {

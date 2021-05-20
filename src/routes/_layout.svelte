@@ -1,7 +1,13 @@
 <script context="module">
   import { isLoading, waitLocale } from 'svelte-i18n';
 
-  export async function preload() {
+  export async function preload(page, session) {
+    const { isAuthenticated } = session;
+    console.log('===== session: ', session);
+    if (!isAuthenticated && page.path.includes('admin')) {
+      this.redirect(302, 'login');
+    }
+
     return waitLocale();
   }
 </script>
