@@ -89,7 +89,9 @@ And that's it! Go and get started on Svelte and Tachyons :)
 
 #### Backend
 
-As mentioned in the architecture section, we use Firebase as our realtime db. For IVC appointments, we use MariaDB on the AWS EC2 server to store timesots.
+We use MariaDB on the AWS EC2 server to store timesots and the current queue number.
+
+To install MariaDB on Ubuntu, follow [this guide by Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04).
 
 Remote access to MariaDB has been configured for the following user:
 ```
