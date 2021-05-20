@@ -78,9 +78,6 @@ app
 			secret: SESSION_SECRET,
 			authRequired: false,
 			auth0Logout: true,
-			authorizationParams: {
-				redirect_uri: 'http://localhost:3000',
-			},
 		}),
 		(req, res, next) => {
 			return sapper.middleware({
