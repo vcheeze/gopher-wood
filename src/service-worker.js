@@ -1,4 +1,5 @@
 import { timestamp, files, shell, routes } from '@sapper/service-worker';
+importScripts("https://progressier.com/client/sw.js?id=IBd5xTnOj5466bSX1tC4");
 
 const ASSETS = `cache${timestamp}`;
 
