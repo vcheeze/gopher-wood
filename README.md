@@ -120,8 +120,7 @@ Within the Auth0 dashboard you will see an application called Gopher Wood, and t
 
 We currently only allow a social login through Google, and any routes under `/admin` requires the user to be logged in. However, I still need to figure out how to allow only specific email addresses to login, and disable the rest.
 
-
-
+Auth0's `express-openid-connect` package only works out of the box with Express, hence we have foregone Sapper's default server Polka.
 
 #### PWA / SEO
 
