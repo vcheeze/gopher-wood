@@ -114,13 +114,22 @@ It is also configured to only allow localhost connections, so remote attempts to
 
 #### User Authentication / Management
 
-We use [Auth0](https://manage.auth0.com/dashboard) as the user authentication system. There is an Auth0 account created linked to vcheeze's GitHub account.
-
 Within the Auth0 dashboard you will see an application called Gopher Wood, and that is where our system is set up.
 
 We currently only allow a social login through Google, and any routes under `/admin` requires the user to be logged in. However, I still need to figure out how to allow only specific email addresses to login, and disable the rest.
 
-Auth0's `express-openid-connect` package only works out of the box with Express, hence we have foregone Sapper's default server Polka.
+
+The above can be considered deprecated for now. I will try to set up [Keycloak](https://www.keycloak.org/) on our Ubuntu server so that we can manage our own users. We are going to use docker to install Keycloack since we will likely use docker eventually for deployment. To install docker, follow their [official guide for Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
+
+- https://keycloak.ch/keycloak-tutorials/tutorial-1-installing-and-running-keycloak/
+- https://www.keycloak.org/docs/latest/getting_started/#trying-out-keycloak
+- https://usmanshahid.medium.com/levels-of-access-control-through-keycloak-part-1-d29e24b0ddad
+- https://wkrzywiec.medium.com/create-and-configure-keycloak-oauth-2-0-authorization-server-f75e2f6f6046
+- https://medium.com/@hasnat.saeed/setup-keycloak-server-on-ubuntu-18-04-ed8c7c79a2d9
+- https://www.techrunnr.com/how-to-set-up-a-keycloak-server-in-linux/
+- https://zweck.io/setting-up-keycloak-sso-open-source-identity-and-access-management/
+- https://tux-techie.com/2020/11/01/how-to-install-keycloak-in-ubuntu-20-04/
+- 
 
 #### PWA / SEO
 
