@@ -50,13 +50,6 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood). We utilize [Hostinger](https://www.hostinger.com)'s VPS plan to host the app. The domain is currently bought from [GoDaddy](https://www.godaddy.com). The server that we have chosen in Hostinger is an Ubuntu 20.04 server. [Digital Ocean](https://www.digitalocean.com) has a lot of neat tutorials for Ubuntu, and for different versions as well, so it's definitely worth checking out what they have.
 
-Our app resides in `~/projects/gopher-wood`. An administrative user has been created with the following credentials:
-
-```
-username: gw-admin
-password: dZ93Re#NA9%&hN8NqctEpuLt
-```
-
 This is so that we are not always accessing the server with the root user, who has total control over the server and can accidentally perform destructive tasks that can take a lot of time and effort to repair.
 
 On the server, we have installed all the necessary tools such as `node`, `npm`, `git`, `pm2`, `nginx`, `mariadb`, etc. Detailed steps can be seen on some documentation somewhere (Medium.com or somewhere else). Essentially, `pm2` is used to run the app, and `nginx` is used as a proxy to connect our domain to the server. Of course, for the domain to be mapped to the server, we also need to point the DNS record on GoDaddy to our server's IP address.
