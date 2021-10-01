@@ -96,12 +96,7 @@ That's it! Go and get started on our Gopher Wood Clinic app :)
 
 We use MariaDB on the Ubuntu server to store timesots and the current queue number.
 
-To install MariaDB on Ubuntu, follow [this guide by Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04). Our MariaDB instance is configured with an administrative user with the following credentials:
-
-```
-username: gwadmin
-password: gdubadmin8081
-```
+To install MariaDB on Ubuntu, follow [this guide by Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04).
 
 It is also configured to only allow localhost connections, so remote attempts to connect to the DB will currently fail. Whether we open up remote connections at a later point will be decided when necessary.
 
