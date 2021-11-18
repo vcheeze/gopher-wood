@@ -54,15 +54,20 @@
 <svelte:head>
   <!-- <title>{$_('clinic.fullName')}</title> -->
   <!-- <meta name="description" content={$_('clinic.description')} /> -->
-  <title>歌斐木診所 - {$_('page.home.title')}</title>
+  <title>歌斐木診所 - 首頁</title>
   <meta
     name="description"
     content="歌斐木診所。回歸起初創造之道，追求全人健康。" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content={$_('clinic.fullName')} />
-  <meta property="og:description" content={$_('clinic.description')} />
-  <meta property="og:url" content="http://www.gopherwoodclinic.org" />
-  <link rel="canonical" href="http://www.gopherwoodclinic.org" />
+  <meta property="og:title" content="歌斐木診所" />
+  <meta
+    property="og:description"
+    content="歌斐木診所。回歸起初創造之道，追求全人健康。" />
+  <meta property="og:url" content="https://www.gopherwoodclinic.org" />
+  <meta
+    property="og:image"
+    content="https://www.gopherwoodclinic.org/images/logo-preview.jpg" />
+  <link rel="canonical" href="https://www.gopherwoodclinic.org" />
 </svelte:head>
 
 <Spinner visible={showSpinner} />

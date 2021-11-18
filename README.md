@@ -9,9 +9,10 @@ Official app for Gopher Wood Clinic.
 - [For Developers](#for-developers)
   - [Architecture](#architecture)
   - [Technologies](#technologies)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
+    - [The base app](#the-base-app)
+    - [The database](#the-database)
     - [User Authentication / Management](#user-authentication--management)
+    - [PWA / SEO](#pwa--seo)
   - [Release Management and Naming Conventions](#release-management-and-naming-conventions)
   - [Features Sets](#features-sets)
 - [Notes & Resources](#notes--resources)
@@ -39,7 +40,7 @@ npm install # or yarn
 npm run dev
 ```
 
-Open up [localhost:3000](http://localhost:3000) and start clicking around.
+Open up [localhost:3000](http://localhost:3000) and start clicking around. If something fails, just as a note: the node version we are currently using is v14.17.0 (LTS when this is written).
 
 Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
@@ -47,19 +48,21 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ### Architecture
 
-Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood). We utilize AWS for hosting the app. The domain is currently bought from [GoDaddy](https://www.godaddy.com). GoDaddy is configured in its `www` CNAME record to point to an Application Load Balancer on AWS, which in turns routes port 80 to port 3000 of our EC2 instance (running Ubuntu 18), on which our app is running.
+Our source code is on [our GitHub repo](https://github.com/vcheeze/gopher-wood). We utilize [Hostinger](https://www.hostinger.com)'s VPS plan to host the app. The domain is currently bought from [GoDaddy](https://www.godaddy.com). The server that we have chosen in Hostinger is an Ubuntu 20.04 server. [Digital Ocean](https://www.digitalocean.com) has a lot of neat tutorials for Ubuntu, and for different versions as well, so it's definitely worth checking out what they have.
 
-In the EC2 instance, [pm2](https://pm2.keymetrics.io/) is utilized to serve the app. In order to deploy the app again, simply `git pull` in the repo (found in `~/gopher-wood/`), `npm i` if `package.json` has been changed, then `npm run build`. pm2 should pick up the changes automatically from `__sapper__/build/` and serve the updated files. If your changes are not reflected, simply run `pm2 restart [PID of our process]` in the terminal. You can find the PID by entering `pm2 list`. If you need to start an entire new process, run `pm2 start pm2 start __sapper__/build` to start serving the app.
+This is so that we are not always accessing the server with the root user, who has total control over the server and can accidentally perform destructive tasks that can take a lot of time and effort to repair.
 
-For IVC appointments, we use MariaDB to store booked appointments. This feature has not been deployed yet and is not in our EC2 VM yet.
+On the server, we have installed all the necessary tools such as `node`, `npm`, `git`, `pm2`, `nginx`, `mariadb`, etc. Detailed steps can be seen on some documentation somewhere (Medium.com or somewhere else). Essentially, `pm2` is used to run the app, and `nginx` is used as a proxy to connect our domain to the server. Of course, for the domain to be mapped to the server, we also need to point the DNS record on GoDaddy to our server's IP address.
 
-For real time functionality, we are currently using Firebase's realtime DB. For the future, we should consider using web sockets with MariaDB so that our DB is centralized. We can also consider [RethinkDB](https://rethinkdb.com) as an alternative.
+In order to deploy the app, simply `cd` into the app directory, do a `git pull`, `npm i` if `package.json` has been changed, then `npm run build`. pm2 should pick up the changes automatically from `__sapper__/build/` and serve the updated files. If your changes are not reflected, simply run `pm2 restart [PID of our process]` in the terminal. You can find the PID by entering `pm2 list`. If you need to start an entire new process, run `pm2 start __sapper__/build` to start serving the app. There should also be a service configured called `pm2-gw-admin` that automatically starts serving our app when the system starts up again (i.e. after a reboot).
+
+MariaDB on the server is used to store IVC appointments, as well as the current queue number. As for real time functionality, we are using [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) with our existing MariaDB.
 
 ### Technologies
 
-#### Frontend
+#### The base app
 
-We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS; read [this article by Adam Wathan](https://adamwathan.me/css-utility-classes-and-separation-of-concerns) for an idea of why we use functional CSS. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Polka](https://github.com/lukeed/polka) instead of Express for the server.
+We use [Sapper](https://sapper.svelte.dev), a framework built on [Svelte](https://svelte.dev). [Tachyons](https://tachyons.io) is used for CSS; read [this article by Adam Wathan](https://adamwathan.me/css-utility-classes-and-separation-of-concerns) for an idea of why we use functional CSS. Svelte's preferred bundler, [Rollup](https://rollupjs.org/guide/en), is used, as well as [Express](https://expressjs.com/). We use Express instead of the default Polka that comes with the Sapper template because of the way we are handling [authentication](#user-authentication--management).
 
 With regards to Tachyons, how well it integrates with Sapper still remains to be seen. This is an ambitious attempt for us to use functional CSS, but we will remain open to other options as we develop our project - if an alternative comes up with a compelling argument to switch over, then we might. As of now, simply follow a few helpful guidelines:
 
@@ -83,29 +86,42 @@ With regards to Tachyons, how well it integrates with Sapper still remains to be
   <p class:dynamic={condition.isTrue()}></p>
   ```
 
-And that's it! Go and get started on Svelte and Tachyons :)
+For internationalization, we use [svelte-i18n](https://github.com/kaisermann/svelte-i18n) to accommodate both English and Traditional Chinese. The author of this package has an [example with Sapper](https://github.com/kaisermann/sapper-template-i18n) that we have referred to in order to incorporate `svelte-i18n` into our app.
 
-#### Backend
+Since Sapper uses Express, our we can write our server as well within the same application, and this is where all our APIs reside.
 
-As mentioned in the architecture section, we use Firebase as our realtime db. For IVC appointments, we use MariaDB on the AWS EC2 server to store timesots.
+That's it! Go and get started on our Gopher Wood Clinic app :)
 
-Remote access to MariaDB has been configured for the following user:
-```
-user: gwuser;
-password: gdubsuperadmin;
-```
+#### The database
 
-However, we still have to configure MariaDB on the server to accept this user certain incoming IP addresses. This can be done by `ssh`ing into the server, running `sudo mysql -u root` to start MariaDB, then enter
-```sql
-GRANT ALL PRIVILEGES ON gopher_wood.* TO 'gwuser'@'[the_IP_address_to_add]' IDENTIFIED BY 'gdubsuperadmin';
-```
+We use MariaDB on the Ubuntu server to store timesots and the current queue number.
 
-Replace `[the_IP_address_to_add]` with the your IP address. After this, run `FLUSH PRIVILEGES;` in order to reload privileges on the database. This will grant the user `gwuser` accessing the database from the specified IP address all privileges on the database `gopher_wood` - including all the tables in it (specified by `.*` following `gopher_wood`).
+To install MariaDB on Ubuntu, follow [this guide by Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04).
+
+It is also configured to only allow localhost connections, so remote attempts to connect to the DB will currently fail. Whether we open up remote connections at a later point will be decided when necessary.
 
 #### User Authentication / Management
 
-We use [Auth0](https://manage.auth0.com/dashboard) as the user authentication system. There is an Auth0 account created linked to vcheeze's GitHub account.
 Within the Auth0 dashboard you will see an application called Gopher Wood, and that is where our system is set up.
+
+We currently only allow a social login through Google, and any routes under `/admin` requires the user to be logged in. However, I still need to figure out how to allow only specific email addresses to login, and disable the rest.
+
+
+The above can be considered deprecated for now. I will try to set up [Keycloak](https://www.keycloak.org/) on our Ubuntu server so that we can manage our own users. We are going to use docker to install Keycloack since we will likely use docker eventually for deployment. To install docker, follow their [official guide for Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
+
+- https://keycloak.ch/keycloak-tutorials/tutorial-1-installing-and-running-keycloak/
+- https://www.keycloak.org/docs/latest/getting_started/#trying-out-keycloak
+- https://usmanshahid.medium.com/levels-of-access-control-through-keycloak-part-1-d29e24b0ddad
+- https://wkrzywiec.medium.com/create-and-configure-keycloak-oauth-2-0-authorization-server-f75e2f6f6046
+- https://medium.com/@hasnat.saeed/setup-keycloak-server-on-ubuntu-18-04-ed8c7c79a2d9
+- https://www.techrunnr.com/how-to-set-up-a-keycloak-server-in-linux/
+- https://zweck.io/setting-up-keycloak-sso-open-source-identity-and-access-management/
+- https://tux-techie.com/2020/11/01/how-to-install-keycloak-in-ubuntu-20-04/
+- 
+
+#### PWA / SEO
+
+I have currently combined these 2 categories into one because I don't have much to say about them yet. SEO should fall under PWA anyway, and we currently utilize [Progressier](https://progressier.com) to achieve some simple functions such as prompt to install, manifest.json and its required images, and the service worker for our app. It should generate the necessary headers as well for SEO, though of course we can still add on to whatever is generated. To check our Progressier's integration with our app, we can go to the [Progressier Dashboard](https://progressier.com/dashboard).
 
 ### Release Management and Naming Conventions
 
@@ -158,6 +174,13 @@ Build a simple PWA with client and server in place, including proper security me
 
 IVC Appointment. Set up simple about and contact us pages.
 
+#### Sprint 3 <!-- omit in toc -->
+
+Add admin pages:
+- Login system with [Auth0](https://auth0.com/)
+- Page to view appointments (think about table and calendar views)
+- Page to update IVC appointment rules (i.e. how many days in advance, when is the latest someone can get an appointment, etc.)
+
 ## Notes & Resources
 
 ### PWAs (Progressive Web Apps)
@@ -180,9 +203,6 @@ IVC Appointment. Set up simple about and contact us pages.
 - Google's tutorial for [building an offline-first, data-driven PWA](https://codelabs.developers.google.com/codelabs/workbox-indexeddb/index.html?index=..%2F..index#0)
 - [PouchDB](https://pouchdb.com)
 - [Dexie.js](https://dexie.org)
-- [ZangoDB](https://github.com/erikolson186/zangodb)
-- [JsStore](https://jsstore.net)
-- [localForage](https://localforage.github.io/localForage)
 
 ### Design Principles
 
@@ -218,6 +238,7 @@ JS:
 - [Velocity.js](http://velocityjs.org/) (a jQuery-like but much more performant library)
 - [SVG.js](https://svgjs.com/docs/3.0)
 - [Lottie](http://airbnb.io/lottie/#/README)
+- [Popmotion](https://popmotion.io)
 
 ### DevOps
 - [Node-Express app deployment](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment)
@@ -229,5 +250,3 @@ JS:
 ### Miscellaneous
 - [19 ways to become a better Node.js developer in 2019](https://medium.com/@me_37286/19-ways-to-become-a-better-node-js-developer-in-2019-ffd3a8fbfe38)
 - [ZEIT Now](https://zeit.co/vcheeze/gopher-wood)
-- [AWS Amplify](https://aws.amazon.com/registration-confirmation)
-
