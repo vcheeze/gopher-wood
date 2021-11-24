@@ -1,5 +1,5 @@
 import sirv from 'sirv';
-import polka from 'polka';
+import express from 'express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
@@ -19,7 +19,7 @@ const sse = new SSE(0);
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
-const app = polka();
+const app = express();
 
 // streaming route for SSE on FE
 app.get('/queueNumber', sse.init);
