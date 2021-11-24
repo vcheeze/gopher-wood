@@ -22,7 +22,7 @@ jobs:
       
       # build Sapper app
       - name: Sapper Build
-        uses: truewebartisans/actions-sapper@mater
+        uses: truewebartisans/actions-sapper@master
         with:
           build_mode: "build"
       
