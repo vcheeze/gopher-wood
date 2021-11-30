@@ -1,8 +1,8 @@
 {
-  "realm": "gopherwood",
-  "auth-server-url": "http://localhost:8080/auth/",
+  "realm": "gw-admin",
+  "auth-server-url": "https://www.gopherwoodclinic.org/auth/",
   "ssl-required": "external",
-  "resource": "gopherwood",
+  "resource": "gopherwoodclinic",
   "public-client": true,
   "confidential-port": 0
 }
