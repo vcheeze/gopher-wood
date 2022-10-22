@@ -1,0 +1,45 @@
+{
+  "title": "預約注射",
+  "description": "預約注射IVC",
+
+  "field": {
+    "name": "姓名",
+    "name.label": "姓名",
+    "mobile": "手機號碼",
+    "mobile.label": "手機號碼",
+    "prevAppointment.label": "請選擇欲更改或取消的時段",
+    "date.label": "日期",
+    "time.label": "時間",
+    "newOptions": "請選擇欲更改至的日期與時間",
+    "period": "時段",
+    "period.morning": "早上",
+    "period.afternoon": "下午"
+  },
+
+  "button": {
+    "submit":"確認",
+    "get.appointment": "查詢預約",
+    "search": "查詢"
+  },
+
+  "dialog": {
+    "success": {
+      "title": "預約成功!",
+      "description": "預約時段"
+    },
+    "error": {
+      "title": "預約失敗",
+      "description": "麻煩您再試一次。."
+    }
+  },
+
+  "options": {
+    "newAppointment": "預約注射",
+    "modifyAppointment": "更改/取消注射"
+  },
+
+  "editOptions": {
+    "update": "更改注射",
+    "cancel": "取消注射"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "locale": "en",
+  "nav": {
+    "home": "首頁",
+    "ivc": "預約注射",
+    "about": "關於",
+    "contact": "聯絡我們",
+    "appointment": "查看預約"
+  },
+  "clinic": {
+    "fullName": "歌斐木診所",
+    "name": "歌斐木",
+    "description": "歌斐木診所",
+    "openingHours": {
+      "title": "看診時間",
+      "weekdays": "週一至週五 | 9:00 - 13:00， 17:00 - 21:00 (16:00 - 17:00 約診）",
+      "weekend": "週六 | 9:00 - 13:00"
+    }
+  }
+}

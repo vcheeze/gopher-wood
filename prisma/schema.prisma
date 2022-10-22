@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+// models
+model User {
+  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  role      UserRole @default(USER)
+  name      String
+  email     String   @unique
+  mobile    String?
+}
+
+model Appointment {
+  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime        @default(now())
+  type      AppointmentType @default(REGULAR)
+  startTime DateTime
+  endTime   DateTime
+  fullName  String
+  phone     String
+}
+
+// enums
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum AppointmentType {
+  REGULAR
+  IVC
+}

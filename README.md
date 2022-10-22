@@ -250,3 +250,9 @@ JS:
 ### Miscellaneous
 - [19 ways to become a better Node.js developer in 2019](https://medium.com/@me_37286/19-ways-to-become-a-better-node-js-developer-in-2019-ffd3a8fbfe38)
 - [ZEIT Now](https://zeit.co/vcheeze/gopher-wood)
+- https://andrejgajdos.com/how-to-create-a-link-preview/
+- https://medium.com/@jamesyhiggs/how-to-add-thumbnail-images-to-the-featured-section-of-your-linkedin-profile-for-web-apps-sites-917346235932
+- https://medium.com/@JasonCK/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%AE%93%E7%B8%AE%E5%9C%96%E6%AF%80%E6%8E%89%E4%BD%A0%E7%9A%84%E8%A8%AD%E8%A8%88-a6edd290981d
+- https://ogp.me/
+- https://metatags.io/
+

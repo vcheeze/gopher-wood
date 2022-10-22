@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'gopher-wood',
-    script: 'node __sapper__/build',
+    script: 'node build',
     exec_mode: 'cluster',
     instances: 1,
     watch: true,

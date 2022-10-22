@@ -1,0 +1,44 @@
+{
+  "title": "IVC Appointment",
+  "description": "Make appointments for IVC in Gopher Wood Clinic here.",
+
+  "field": {
+    "name.label": "Full Name",
+    "mobile.label": "Mobile Number",
+    "prevAppointment.label": "Please select the timeslot you would like to modify",
+    "date.label": "Date",
+    "time.label": "Time",
+    "newOptions": "Please select a new date and time",
+    "period": "Period",
+    "period.morning": "Morning",
+    "period.afternoon": "Afternoon"
+  },
+
+  "button": {
+    "submit": "Submit",
+    "get.appointment": "View Appointments",
+    "search": "Search"
+  },
+
+  "dialog": {
+    "success": {
+      "title": "Your appointment is booked!",
+      "description": "Appointment details"
+    },
+    "error": {
+      "title": "Something went wrong while booking your appointment.",
+      "description": "Please try again."
+    }
+  },
+ 
+
+  "options": {
+    "newAppointment": "New Appointment",
+    "modifyAppointment": "Update/Cancel Appointment"
+  },
+  
+  "editOptions": {
+    "update": "Update appointment",
+    "cancel": "Cancel appointment"
+  }
+}
