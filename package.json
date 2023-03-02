@@ -24,7 +24,7 @@
     "express-session": "^1.17.2",
     "express-sse": "0.5.1",
     "helmet": "^3.23.3",
-    "keycloak-connect": "^14.0.0",
+    "keycloak-connect": "^21.0.1",
     "mariadb": "^2.4.2",
     "sirv": "^0.4.6",
     "svelte-awesome": "^2.3.0",
