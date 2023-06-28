@@ -4,7 +4,7 @@
 
   "field": {
     "name": "姓名",
-    "name.label": "姓名",
+    "fullName.label": "姓名",
     "mobile": "手機號碼",
     "mobile.label": "手機號碼",
     "prevAppointment.label": "請選擇欲更改或取消的時段",

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	// import { Alert } from 'flowbite-svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 	import { t } from '$lib/translations';
 
@@ -60,23 +59,24 @@
 
 <Spinner visible={showSpinner} />
 
-<div>
-	<img src="/images/logo.svg" alt="logo" />
-</div>
-<div>
-	<p class="queueNumber-header">{$t(qNumHeader)}</p>
-	<p class="queueNumber-body">{qNumBody || '0000'}</p>
-	<p>{$t('common.clinic.openingHours.title')}</p>
-	<p>{$t('common.clinic.openingHours.weekdays')}</p>
-	<p>{$t('common.clinic.openingHours.weekend')}</p>
+<div class="home">
+	<div>
+		<img src="/images/logo.svg" alt="logo" />
+	</div>
+	<div>
+		<p class="queueNumber-header">{$t(qNumHeader)}</p>
+		<p class="queueNumber-body">{qNumBody || '0000'}</p>
+		<p>{$t('common.clinic.openingHours.title')}</p>
+		<p>{$t('common.clinic.openingHours.weekdays')}</p>
+		<p>{$t('common.clinic.openingHours.weekend')}</p>
+	</div>
 </div>
 
-<!-- <div class="p-8">
-	<Alert>
-		<span class="font-medium">Info alert!</span> Change a few things up and try submitting again.
-	</Alert>
-</div> -->
 <style>
+	.home {
+		text-align: center;
+	}
+
 	.queueNumber-header {
 		margin: 0;
 		font-size: 2rem;

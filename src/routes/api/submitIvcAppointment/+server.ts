@@ -6,7 +6,7 @@ import {
 } from '../../utils/responses';
 import pool from '../../db';
 
-export async function post(req, res, next) {
+export async function POST({ request }) {
   // console.log('==> req: ', req.body);
   const { fullName, telephone, date, time, period } = req.body;
   // perform input validations

@@ -1,11 +1,8 @@
 <script lang="ts">
+	import '../app.postcss';
 	import { navigating } from '$app/stores';
 	import Spinner from '$lib/components/Spinner.svelte';
 	import Nav from '$lib/components/Nav.svelte';
-
-	const styles = {
-		main: 'dtc v-mid pa4'
-	};
 </script>
 
 {#if $navigating}

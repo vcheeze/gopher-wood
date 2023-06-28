@@ -3,7 +3,7 @@
   "description": "Make appointments for IVC in Gopher Wood Clinic here.",
 
   "field": {
-    "name.label": "Full Name",
+    "fullName.label": "Full Name",
     "mobile.label": "Mobile Number",
     "prevAppointment.label": "Please select the timeslot you would like to modify",
     "date.label": "Date",
